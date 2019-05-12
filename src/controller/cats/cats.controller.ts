@@ -1,6 +1,6 @@
 import { Controller, Get, Req, Post, Param, Body } from '@nestjs/common';
-import { Request } from "express";
-import { CreateCatDto } from './creat-cat.dto'
+import { Request } from 'express';
+import { CreateCatDto } from './creat-cat.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -12,7 +12,8 @@ export class CatsController {
 
     @Get(':id')
     findOne(@Param() params): string {
-        console.log(params.id)
+        // tslint:disable-next-line:no-console
+        console.log(params.id);
         return `This action returns a #${params.id} cat`;
     }
 

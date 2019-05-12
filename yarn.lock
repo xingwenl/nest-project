@@ -56,6 +56,13 @@
   dependencies:
     optional "0.1.4"
 
+"@nestjs/typeorm@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.npmjs.org/@nestjs/typeorm/-/typeorm-6.1.0.tgz#bfc97ab68032d4df4bb9e30495f10957b2d60575"
+  integrity sha512-bKZeL5IXr4Z9ZtPNiiriodF8nEcjoUEAO3ugEQXGRBcYqecMpj+6+1VBCDmTloamzrUiuBil9JxBwQUJ8u0Nag==
+  dependencies:
+    uuid "3.3.2"
+
 "@nuxtjs/opencollective@0.2.1":
   version "0.2.1"
   resolved "https://registry.npm.taobao.org/@nuxtjs/opencollective/download/@nuxtjs/opencollective-0.2.1.tgz#ddf3e6a22990997322bc2b82e2455a7fbffc518d"
