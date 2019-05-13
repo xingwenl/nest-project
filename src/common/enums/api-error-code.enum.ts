@@ -3,4 +3,6 @@ export enum ApiErrorCode {
     SUCCESS = 0, //成功
 
     USER_NOTFUND,
+
+    TOKEN_INVALID = 401
 }

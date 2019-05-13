@@ -1,8 +1,7 @@
-// import { TypeOrmModule } from "@nestjs/typeorm";
 import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Userinfo {
+@Entity('user_record')
+export class UserRecord {
     @PrimaryGeneratedColumn()
     id: number;
 

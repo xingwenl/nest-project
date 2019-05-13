@@ -21,7 +21,7 @@ export {
 
 export function httpRes(code: ApiErrorCode, message: string, data?: any, status = HttpStatus.OK): ApiException | ApiResponse {
     if (code != ApiErrorCode.SUCCESS) {
-        return new ApiException(code, message, status)
+        throw new ApiException(code, message, status)
     }
     return new ApiResponse(code, data, message)
 }

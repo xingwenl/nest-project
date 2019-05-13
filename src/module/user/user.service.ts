@@ -1,23 +1,23 @@
-import { Injectable, HttpStatus, Inject } from '@nestjs/common';
+import { Injectable, HttpStatus, Inject, forwardRef } from '@nestjs/common';
 import { Repository } from "typeorm";
 import { LoginDto } from './dto';
 import { httpRes, ApiResponse, ApiException, ApiErrorCode } from '../../common/help/http.response';
 // import { UserProviders } from "../../common/entities/user.providers";
-import { Userinfo } from "./user.entity";
-// import { ApiException, ApiErrorCode } from "../../common/exception/api.exception";
+import { Userinfo } from "../../common/entity/user/user-info.entity";
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UserService  {
 
     constructor(
         @Inject('UserRepositoryInfo')
-        private readonly userRepository: Repository<Userinfo>
+        private readonly userRepository: Repository<Userinfo>,
+        private readonly authService: AuthService
     ){
     }
 
     public async info(): Promise<ApiResponse|ApiException> {
         let res = await this.userRepository.find()
-        // throw new ApiException(ApiErrorCode.USER_NOTFUND, "请求成功")
         return httpRes(
                 ApiErrorCode.SUCCESS,
                 "请求成功",
@@ -32,10 +32,11 @@ export class UserService  {
         //     res,
         // );
         if (loginDto.username === 'lixingwen') {
+            const token = await this.authService.createToken({username: loginDto.username})
             return httpRes(
                 ApiErrorCode.SUCCESS,
                 "请求成功",
-                {username: 'lixingwen', age: 18}
+                {username: 'lixingwen', age: 18, token}
             )
         }
         return httpRes(
