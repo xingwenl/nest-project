@@ -1,9 +1,9 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from "@nestjs/common";
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, ValidationError } from "@nestjs/common";
 import { ApiException } from "../exception/api.exception";
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-    catch(exception: { getStatus: () => void; }, host: ArgumentsHost) {
+    catch(exception: HttpException, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
         const request = ctx.getRequest();
@@ -11,21 +11,23 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
         if (exception instanceof ApiException) {
             response
-                .status(status)
+                .status(200)
                 .json({
                     code: exception.getErrorCode(),
                     message: exception.getErrorMessage(),
                     date: new Date().toLocaleDateString(),
-                    path: request.url
+                    path: request.url,
+                    test: exception.message
                 })
         }
         else {
             response
-            .status(status)
+            .status(200)
             .json({
                 code: status,
                 date: new Date().toLocaleDateString(),
-                path: request.url
+                path: request.url,
+                message: exception.message
             })
         }
     }

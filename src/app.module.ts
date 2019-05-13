@@ -10,5 +10,6 @@ import { DbModule } from "./common/db/db.module";
   imports: [DbModule, UserModule, AuthModule],
   controllers: [AppController, CatsController],
   providers: [AppService],
+  exports: [UserModule]
 })
 export class AppModule {}

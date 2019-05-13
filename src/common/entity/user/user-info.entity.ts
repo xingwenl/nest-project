@@ -6,12 +6,12 @@ export class Userinfo {
     id: number;
 
     @Column()
-    name: string;
+    username: string;
 
     @Column()
-    pwd: string;
+    password: string;
 
-    @Column()
+    @Column({default: 0})
     age: number;
 }
 

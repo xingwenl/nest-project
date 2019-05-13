@@ -1,14 +1,15 @@
 import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { JwtPayload } from "./interfaces/jwt-payload.interface";
-// import { UserService } from "../user/user.service";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
-        // @Inject(forwardRef(() => UserService))
-        // private readonly userService: UserService
+
+        @Inject(forwardRef(() => UserService))
+        private readonly userService: UserService
         ) {
     }
 
@@ -24,6 +25,6 @@ export class AuthService {
 
     //  token 是从 HTTP 请求中的 Authorization 提取
     async validateUser(payload: JwtPayload): Promise<any> {
-        return payload
+        return await this.userService.sign(payload)
     }
 }
