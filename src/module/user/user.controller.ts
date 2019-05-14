@@ -6,6 +6,7 @@ import { Roles } from "../../common/decorator/roles.decorator";
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/common/guard/jwt-auth.guard';
 import { JwtAuth } from 'src/common/decorator/jwt-auth.decorator';
+import { CustomValidationPipe } from 'src/common/pipe/validation.pipe';
 
 
 @Controller('user')

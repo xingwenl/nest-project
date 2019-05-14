@@ -38,11 +38,12 @@ export class UserService  {
         //     res,
         // );
         if (loginDto.username === 'lixingwen') {
-            const token = await this.authService.createToken({username: loginDto.username})
+            console.log(this.authService.createToken)
+            // const token = await this.authService.createToken({username: loginDto.username})
             return httpRes(
                 ApiErrorCode.SUCCESS,
                 "请求成功",
-                {username: 'lixingwen', age: 18, token}
+                {username: 'lixingwen', age: 18, }
             )
         }
         return httpRes(

@@ -17,7 +17,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
                     message: exception.getErrorMessage(),
                     date: new Date().toLocaleDateString(),
                     path: request.url,
-                    test: exception.message
+                    data: exception.getErrorData()
                 })
         }
         else {

@@ -1,6 +1,5 @@
 import {
     ExecutionContext,
-    UnauthorizedException,
     Injectable
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
