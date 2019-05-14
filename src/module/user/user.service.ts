@@ -48,6 +48,8 @@ export class UserService  {
         );
     }
 
+    
+
     public async register(registerDto: RegisterDto) {
         const user = await this.sign({username: registerDto.username})
         if (user) {
@@ -56,7 +58,12 @@ export class UserService  {
                 '用户已存在',
             )
         }
-        return await this.userRepository.insert(registerDto)
+        const res = await this.userRepository.insert(registerDto)
+        return httpRes(
+            ApiErrorCode.SUCCESS,
+            '成功',
+            {}
+        )
     }
 
     public async edit(editDto: EditDto, req: any) {

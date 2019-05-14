@@ -1,0 +1,7 @@
+{
+    "name": "nest",
+    "version": "1.0.0",
+    "description": "屠龙宝刀",
+    "title": "天下武器排行后台",
+    "url" : "http://localhost:3000/api"
+  }

@@ -1,8 +1,11 @@
 import { IsString, IsInt } from 'class-validator';
+import { ApiModelProperty } from "@nestjs/swagger";
 export class LoginDto {
+    @ApiModelProperty()
     @IsString()
     username: string;
 
+    @ApiModelProperty()
     @IsString()
     password: string;
 } 
