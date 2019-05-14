@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Res, HttpStatus, Get, HttpException, UseGuards, ValidationPipe, UsePipes } from '@nestjs/common';
-import { LoginDto, RegisterDto } from './dto';
+import { Controller, Post, Body, Res, HttpStatus, Get, HttpException, UseGuards, ValidationPipe, Request, Req } from '@nestjs/common';
+import { LoginDto, RegisterDto, EditDto } from './dto';
 import { UserService } from './user.service';
 import { Response } from 'express';
 import { Roles } from "../../common/decorator/roles.decorator";
@@ -28,8 +28,14 @@ export class UserController {
  
     @Get()
     @JwtAuth()
-    async info() {
-        return await this.userService.info()
+    async info( @Req() req) {
+        return await this.userService.info(req)
+    }
+
+    @Post('/edit')
+    @JwtAuth()
+    async edit(@Body() editDto: EditDto, @Req() req: Request) {
+        return await this.userService.edit(editDto, req)
     }
     
 }

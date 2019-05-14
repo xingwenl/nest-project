@@ -12,14 +12,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: SECRET_OR_KEY,
-        })
+            passReqToCallback: true
+        },
+        async (req: Request, payload: JwtPayload, next: Function) => this.validate(req, payload, next)
+        )
     }
-    async validate(payload: JwtPayload) {
+    async validate(req: Request, payload: JwtPayload, next: Function) {
         const user = await this.authService.validateUser(payload);
         if (!user) {
             throw httpRes(ApiErrorCode.TOKEN_INVALID, 'token无效');
         }
-        return user;
+        next(null, user)
     }
     
 }

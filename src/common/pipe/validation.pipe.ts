@@ -1,6 +1,6 @@
 import { PipeTransform, ArgumentMetadata, BadRequestException, Injectable } from '@nestjs/common';
 import { validate } from 'class-validator';
-import { plainToClass } from 'class-transformer';
+import { plainToClass, plainToClassFromExist } from 'class-transformer';
 import { httpRes, ApiErrorCode } from '../help/http.response';
 
 /**

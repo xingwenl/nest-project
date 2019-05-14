@@ -7,9 +7,8 @@ import { AuthModule } from './module/auth/auth.module';
 import { DbModule } from "./common/db/db.module";
 
 @Module({
-  imports: [DbModule, UserModule, AuthModule],
+  imports: [DbModule, AuthModule, UserModule],
   controllers: [AppController, CatsController],
   providers: [AppService],
-  exports: [UserModule]
 })
 export class AppModule {}

@@ -7,16 +7,16 @@ import { SECRET_OR_KEY } from "../../common/constants/constants";
 
 @Global()
 @Module({
-  imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secretOrPrivateKey: SECRET_OR_KEY,
-      signOptions: {
-        expiresIn: 3600,
-      },
-    }),
-  ],
-  providers: [AuthService, JwtStrategy],
-  exports: [PassportModule, AuthService],
+	imports: [
+		PassportModule.register({ defaultStrategy: 'jwt' }),
+		JwtModule.register({
+			secretOrPrivateKey: SECRET_OR_KEY,
+			signOptions: {
+				expiresIn: '2 days',
+			},
+		}),
+	],
+	providers: [AuthService, JwtStrategy],
+	exports: [PassportModule, AuthService],
 })
 export class AuthModule {}

@@ -1,6 +1,6 @@
-import { Injectable, HttpStatus, Inject, forwardRef } from '@nestjs/common';
+import { Injectable, HttpStatus, Inject, forwardRef, Request } from '@nestjs/common';
 import { Repository } from "typeorm";
-import { LoginDto, RegisterDto } from './dto';
+import { LoginDto, RegisterDto, EditDto } from './dto';
 import { httpRes, ApiResponse, ApiException, ApiErrorCode } from '../../common/help/http.response';
 // import { UserProviders } from "../../common/entities/user.providers";
 import { Userinfo } from "../../common/entity/user/user-info.entity";
@@ -13,13 +13,13 @@ export class UserService  {
     constructor(
         @Inject('UserRepositoryInfo')
         private readonly userRepository: Repository<Userinfo>,
-        @Inject(forwardRef(() => UserService))
+        @Inject(forwardRef(() => AuthService))
         private readonly authService: AuthService
     ){
     }
 
-    public async info(): Promise<ApiResponse|ApiException> {
-        let res = await this.userRepository.find()
+    public async info(req: any): Promise<ApiResponse|ApiException> {
+        let res = req.user
         return httpRes(
                 ApiErrorCode.SUCCESS,
                 "请求成功",
@@ -32,27 +32,50 @@ export class UserService  {
     }
 
     public async login(loginDto: LoginDto): Promise<ApiResponse|ApiException> {
-        // let res = await this.userRepository.find()
-        // return new HttpRes(
-        //     HttpStatus.OK,
-        //     res,
-        // );
-        if (loginDto.username === 'lixingwen') {
-            console.log(this.authService.createToken)
-            // const token = await this.authService.createToken({username: loginDto.username})
+        const user = await this.userRepository.findOne(loginDto)
+        console.log(user)
+        if (user) {
+            const token = await this.authService.createToken({username: loginDto.username})
             return httpRes(
                 ApiErrorCode.SUCCESS,
                 "请求成功",
-                {username: 'lixingwen', age: 18, }
+                {...user, token}
             )
         }
-        return httpRes(
+        httpRes(
             ApiErrorCode.USER_NOTFUND,
-            '用户名错误',
+            '帐号或密码错误',
         );
     }
 
     public async register(registerDto: RegisterDto) {
-        return await this.userRepository.save(registerDto)
+        const user = await this.sign({username: registerDto.username})
+        if (user) {
+            httpRes(
+                ApiErrorCode.USER_HAVED,
+                '用户已存在',
+            )
+        }
+        return await this.userRepository.insert(registerDto)
+    }
+
+    public async edit(editDto: EditDto, req: any) {
+        if (req.user) {
+            const user = await this.userRepository.update({id: req.user.id}, {
+                age: editDto.age
+            })
+            if (user) {
+                return httpRes(
+                    ApiErrorCode.SUCCESS,
+                    '成功',
+                    {}
+                )
+            }
+        }
+        return httpRes(
+            ApiErrorCode.SUCCESS,
+            '失败',
+            req.user
+        )
     }
 }
