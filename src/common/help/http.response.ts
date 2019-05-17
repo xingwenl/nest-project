@@ -19,6 +19,10 @@ export {
     HttpStatus
 }
 
+export function httpSuccess(data?: any, message = "成功"): ApiResponse {
+    return new ApiResponse(ApiErrorCode.SUCCESS, data, message)
+}
+
 export function httpRes(code: ApiErrorCode, message: string, data?: any, status = HttpStatus.OK): ApiException | ApiResponse {
     if (code != ApiErrorCode.SUCCESS) {
         throw new ApiException(code, message, status, data)

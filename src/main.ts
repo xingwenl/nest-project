@@ -23,6 +23,8 @@ async function bootstrap() {
   app.useGlobalPipes(new CustomValidationPipe())
 
 
+  // 接口文档
+  /** 
   const options = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The cats API description')
@@ -33,6 +35,8 @@ async function bootstrap() {
     .build()
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('doc', app, document);
+  */
+  
   await app.listen(3000);
 }
 bootstrap();

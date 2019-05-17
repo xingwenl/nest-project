@@ -1,7 +1,7 @@
 import { Injectable, HttpStatus, Inject, forwardRef, Request } from '@nestjs/common';
 import { Repository } from "typeorm";
 import { LoginDto, RegisterDto, EditDto } from './dto';
-import { httpRes, ApiResponse, ApiException, ApiErrorCode } from '../../common/help/http.response';
+import { httpRes, ApiResponse, ApiException, ApiErrorCode, httpSuccess } from '../../common/help/http.response';
 // import { UserProviders } from "../../common/entities/user.providers";
 import { Userinfo } from "../../common/entity/user/user-info.entity";
 import { AuthService } from '../auth/auth.service';
@@ -20,11 +20,7 @@ export class UserService  {
 
     public async info(req: any): Promise<ApiResponse|ApiException> {
         let res = req.user
-        return httpRes(
-                ApiErrorCode.SUCCESS,
-                "请求成功",
-                res
-            )
+        return httpSuccess(res)
     }
     
     public async sign(payload: JwtPayload) {
@@ -36,11 +32,7 @@ export class UserService  {
         console.log(user)
         if (user) {
             const token = await this.authService.createToken({username: loginDto.username})
-            return httpRes(
-                ApiErrorCode.SUCCESS,
-                "请求成功",
-                {...user, token}
-            )
+            return httpSuccess({...user, token})
         }
         httpRes(
             ApiErrorCode.USER_NOTFUND,
@@ -59,11 +51,7 @@ export class UserService  {
             )
         }
         const res = await this.userRepository.insert(registerDto)
-        return httpRes(
-            ApiErrorCode.SUCCESS,
-            '成功',
-            {}
-        )
+        return httpSuccess()
     }
 
     public async edit(editDto: EditDto, req: any) {
@@ -72,11 +60,7 @@ export class UserService  {
                 age: editDto.age
             })
             if (user) {
-                return httpRes(
-                    ApiErrorCode.SUCCESS,
-                    '成功',
-                    {}
-                )
+                return httpSuccess(null)
             }
         }
         return httpRes(
