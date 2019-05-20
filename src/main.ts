@@ -5,9 +5,11 @@ import { RolesGuard } from "./common/guard/roles.guard";
 import { JwtAuthGuard } from "./common/guard/jwt-auth.guard";
 // import { ValidationPipe, ValidationError} from "@nestjs/common";
 import { CustomValidationPipe } from "./common/pipe/validation.pipe";
+import { CustomLogger } from './module/logger/logger';
 // import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useLogger(app.get(CustomLogger))
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalGuards(new RolesGuard(new Reflector()));
