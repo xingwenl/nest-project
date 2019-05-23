@@ -6,13 +6,21 @@ import { JwtAuthGuard } from "./common/guard/jwt-auth.guard";
 // import { ValidationPipe, ValidationError} from "@nestjs/common";
 import { CustomValidationPipe } from "./common/pipe/validation.pipe";
 import { CustomLogger } from './module/logger/logger';
+import { ResponseInterceptor } from './common/interceptors/response';
 // import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.useLogger(app.get(CustomLogger))
+  const app = await NestFactory.create(AppModule, {
+    logger: false,
+  });
+  // app.useLogger(app.get(CustomLogger))
   app.setGlobalPrefix('api');
+  // 异常处理
   app.useGlobalFilters(new HttpExceptionFilter());
+  // 成功处理
+  app.useGlobalInterceptors(new ResponseInterceptor())
+  // 角色处理
   app.useGlobalGuards(new RolesGuard(new Reflector()));
+  // token验证处理
   app.useGlobalGuards(new JwtAuthGuard(new Reflector()));
   // app.useGlobalPipes(new ValidationPipe({
   //   transform: true,
@@ -21,8 +29,9 @@ async function bootstrap() {
   //     value: false
   //   }
   // }))
+  // 基础参数判断
   app.useGlobalPipes(new CustomValidationPipe())
-
+  
 
   // 接口文档
   /** 

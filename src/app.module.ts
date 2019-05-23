@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './module/user/user.module';
-import { CatsController } from './module/cats/cats.controller';
 import { AuthModule } from './module/auth/auth.module';
-import { DbModule } from "./common/db/db.module";
+import { CommonModule } from "./common/common.module";
 import { ConfigModule } from "./module/config/config.module";
+import { ApiModule } from './module/api/api.module';
 
 @Module({
-  imports: [ConfigModule, DbModule, AuthModule, UserModule],
-  controllers: [CatsController],
+  imports: [ConfigModule, CommonModule, AuthModule, ApiModule],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}

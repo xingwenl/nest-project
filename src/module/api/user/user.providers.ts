@@ -1,6 +1,6 @@
 import { Connection, Repository } from 'typeorm';
-import { Userinfo } from "../../common/entity/user/user-info.entity";
-import { UserRecord } from "../../common/entity/user/user-record.entity";
+import { Userinfo } from "../../../common/entities/user/user-info.entity";
+import { UserRecord } from "../../../common/entities/user/user-record.entity";
 
 export const UserProviders = [
     {

@@ -1,38 +1,40 @@
 import { Injectable, HttpStatus, Inject, forwardRef, Request } from '@nestjs/common';
 import { Repository } from "typeorm";
 import { LoginDto, RegisterDto, EditDto } from './dto';
-import { httpRes, ApiResponse, ApiException, ApiErrorCode, httpSuccess } from '../../common/help/http.response';
+import { httpRes, ApiResponse, ApiException, ApiErrorCode, httpSuccess } from '../../../common/help/http.response';
 // import { UserProviders } from "../../common/entities/user.providers";
-import { Userinfo } from "../../common/entity/user/user-info.entity";
-import { AuthService } from '../auth/auth.service';
-import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
+import { Userinfo } from "../../../common/entities/user/user-info.entity";
+import { AuthService } from '../../auth/auth.service';
+import { JwtPayload } from '../../auth/interfaces/jwt-payload.interface';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UserService  {
 
     constructor(
-        @Inject('UserRepositoryInfo')
+        @InjectRepository(Userinfo)
         private readonly userRepository: Repository<Userinfo>,
-        @Inject(forwardRef(() => AuthService))
         private readonly authService: AuthService
     ){
     }
 
-    public async info(req: any): Promise<ApiResponse|ApiException> {
+    public async info(req: any): Promise<any> {
         let res = req.user
-        return httpSuccess(res)
+        return res
     }
     
     public async sign(payload: JwtPayload) {
         return this.userRepository.findOne(payload)
     }
 
-    public async login(loginDto: LoginDto): Promise<ApiResponse|ApiException> {
+    public async login(loginDto: LoginDto): Promise<any> {
         const user = await this.userRepository.findOne(loginDto)
-        console.log(user)
         if (user) {
             const token = await this.authService.createToken({username: loginDto.username})
-            return httpSuccess({...user, token})
+            return {
+                ...user, 
+                token
+            }
         }
         httpRes(
             ApiErrorCode.USER_NOTFUND,
@@ -51,7 +53,7 @@ export class UserService  {
             )
         }
         const res = await this.userRepository.insert(registerDto)
-        return httpSuccess()
+        return null
     }
 
     public async edit(editDto: EditDto, req: any) {
@@ -60,7 +62,7 @@ export class UserService  {
                 age: editDto.age
             })
             if (user) {
-                return httpSuccess(null)
+                return null
             }
         }
         return httpRes(
