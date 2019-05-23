@@ -5,13 +5,11 @@ import { RolesGuard } from "./common/guard/roles.guard";
 import { JwtAuthGuard } from "./common/guard/jwt-auth.guard";
 // import { ValidationPipe, ValidationError} from "@nestjs/common";
 import { CustomValidationPipe } from "./common/pipe/validation.pipe";
-import { CustomLogger } from './module/logger/logger';
+// import { CustomLogger } from './module/logger/logger';
 import { ResponseInterceptor } from './common/interceptors/response';
 // import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    logger: false,
-  });
+  const app = await NestFactory.create(AppModule);
   // app.useLogger(app.get(CustomLogger))
   app.setGlobalPrefix('api');
   // 异常处理

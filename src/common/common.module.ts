@@ -1,7 +1,7 @@
 import { Module, Global } from '@nestjs/common';
 // import { DbModule } from "./db/db.module";
-import { Userinfo } from "./entities/user/user-info.entity";
-import { UserRecord } from "./entities/user/user-record.entity";
+import { Entities } from "./entities/entities";
+
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 // import { ConfigModule } from 'src/module/config/config.module';
 import { ConfigService } from 'src/module/config/config.service';
@@ -27,8 +27,7 @@ import { ConfigService } from 'src/module/config/config.service';
             inject: [ConfigService],
         }),
         TypeOrmModule.forFeature([
-            Userinfo,
-            UserRecord
+            ...Entities
         ])
     ],
     controllers: [ ],

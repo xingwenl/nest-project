@@ -5,7 +5,9 @@ export class ArticleType {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({
+        unique: true
+    })
     title: string;
 
     @CreateDateColumn()
