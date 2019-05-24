@@ -7,4 +7,6 @@ export enum ApiErrorCode {
 
     PARAMS_INVALID = 400, // 参数错误
     TOKEN_INVALID = 401, //token错误
+
+    DUPLICATE_VALUES = 402, // 值重复
 }

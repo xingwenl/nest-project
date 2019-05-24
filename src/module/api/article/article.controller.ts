@@ -1,6 +1,6 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Req } from '@nestjs/common';
 import { ArticleService } from './article.service';
-import { AddTypeDto } from './dto';
+import { AddTypeDto, ArticleDto } from './dto';
 import { JwtAuth } from './../../../common/decorator/jwt-auth.decorator';
 import { Controller, Get, Post, Body } from '@nestjs/common';
 
@@ -18,8 +18,8 @@ export class ArticleController {
 
     @Post()
     @JwtAuth()
-    add() {
-        return 'add 成功'
+    add(@Body() articleDto: ArticleDto, @Req() req) {
+        return this.articleService.add(articleDto, req)
     }
 
     @Post('edit')

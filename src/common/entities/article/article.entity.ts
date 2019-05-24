@@ -24,6 +24,7 @@ export class Article {
     
     @Column({
         comment: '备注',
+        default: null
     })
     memo: string
 

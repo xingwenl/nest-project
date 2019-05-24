@@ -15,7 +15,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
                 .json({
                     code: exception.getErrorCode(),
                     message: exception.getErrorMessage(),
-                    date: new Date().toLocaleDateString(),
+                    date: new Date().toLocaleString(),
                     path: request.url,
                     data: exception.getErrorData()
                 })
@@ -25,7 +25,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
             .status(200)
             .json({
                 code: status,
-                date: new Date().toLocaleDateString(),
+                date: new Date().toLocaleString(),
                 path: request.url,
                 message: exception.message
             })
