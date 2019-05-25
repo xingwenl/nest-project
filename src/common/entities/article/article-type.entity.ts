@@ -10,6 +10,10 @@ export class ArticleType {
     })
     title: string;
 
+
+    @Column()
+    img: string;
+
     @CreateDateColumn()
     create_time: Date;
 

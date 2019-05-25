@@ -12,6 +12,11 @@ export class Article {
     username: string;
 
     @Column({
+        comment: '用户id'
+    })
+    user_id: number
+
+    @Column({
         comment: '状态，0 下架，1 正常',
         default: 1
     })

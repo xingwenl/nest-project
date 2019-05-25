@@ -1,34 +1,36 @@
 import { Module, Global } from '@nestjs/common';
-// import { DbModule } from "./db/db.module";
-import { Entities } from "./entities/entities";
-
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-// import { ConfigModule } from 'src/module/config/config.module';
+import { EntitiesModule } from "./entities";
+import { DbModule } from './db'
 import { ConfigService } from 'src/module/config/config.service';
 
+import { MulterModule } from "@nestjs/platform-express";
+
+import { diskStorage } from "multer";
+import { formatDate } from '../utils'
+import { Request } from "express";
 @Global()
 @Module({
     imports: [
-        TypeOrmModule.forRootAsync({
-            useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => {
-                return {
-                    type: "mysql",
-                    host: configService.dbHost,
-                    port: configService.dbPort,
-                    username: configService.dbUsername,
-                    password: configService.dbPassword,
-                    database: configService.dbDatabase,
-                    entities: [
-                        __dirname + '/./entities/**/*.entity{.ts,.js}',
-                    ],
-                    synchronize: true,
-                }
-            },
-            inject: [ConfigService],
-        }),
-        TypeOrmModule.forFeature([
-            ...Entities
-        ])
+        DbModule,
+        EntitiesModule,
+        MulterModule.registerAsync({
+            useFactory: (configService: ConfigService) => ({
+                // dest: configService.uploadDest,
+                storage: diskStorage({
+                    // 设置上传后文件路径，uploads文件夹会自动创建。
+                    destination: (req: Request, file, cb) => {
+                        const { filename='' } = req.query
+                        cb(null, `${configService.uploadDest}/${filename}`)
+                    },
+                    // 给上传文件重命名，获取添加后缀名，
+                    filename: function (req, file, cb) {
+                        const fileFormat = (file.originalname).split('.');
+                        cb(null, `${formatDate()}.${fileFormat.pop()}`);
+                    }
+                })
+            }),
+            inject: [ConfigService]
+        })
     ],
     controllers: [ ],
     providers: [],

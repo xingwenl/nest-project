@@ -1,4 +1,4 @@
-import { AddTypeDto, ArticleDto } from './dto';
+import { AddTypeDto, ArticleDto, EditArticleDto } from './dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -44,15 +44,52 @@ export class ArticleService {
     }
 
     async add(articleDto: ArticleDto, req) {
-        await this.articleRep.insert({
-            title: articleDto.title,
-            type_id: articleDto.type_id,
-            is_top: articleDto.is_top || 0,
-            memo: articleDto.memo || null,
-            content: articleDto.content,
-            sort: articleDto.sort || 0,
-            username: req.user.username
+        let type = await this.articleTypeRep.findOne({
+            id: articleDto.type_id
         })
+        if (!type) {
+            httpRes(ApiErrorCode.ARTICLE_TYPE_INVALID, "文章类型错误")
+        }
+        await this.articleRep.insert({
+            ...articleDto,
+            username: req.user.username,
+            user_id: req.user.id
+        })
+        return null
+    }
+
+    async findOne(id: string) {
+        return await this.articleRep.findOne(id) || {}
+    }
+
+    async findAll(page = 0, size = 10) {
+        return await this.articleRep.find({
+            order: {
+                sort: "DESC",
+                create_time: "DESC"
+            },
+            skip: page * size,
+            take: size
+        })
+    }
+
+    async edit(articleDto: EditArticleDto) {
+        console.log(articleDto)
+        let article = await this.articleRep.findOne({
+            id: articleDto.id
+        })
+        if (!article) {
+            httpRes(ApiErrorCode.NOT_FUND, "文章没找到啊")
+        }
+
+        // article = {
+        //     ...article,
+        //     ...articleDto,
+        // }
+        
+        await this.articleRep.update({
+            id: articleDto.id,
+        }, articleDto)
         return null
     }
 }

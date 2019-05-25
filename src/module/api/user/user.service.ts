@@ -57,10 +57,9 @@ export class UserService  {
     }
 
     public async edit(editDto: EditDto, req: any) {
+        console.log(editDto)
         if (req.user) {
-            const user = await this.userRepository.update({id: req.user.id}, {
-                age: editDto.age
-            })
+            const user = await this.userRepository.update({id: req.user.id}, editDto)
             if (user) {
                 return null
             }

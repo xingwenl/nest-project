@@ -28,7 +28,9 @@ export class ConfigService {
             DB_USERNAME: Joi.string().default('root'),
             DB_PASSWORD: Joi.any(),
             DB_DATABASE: Joi.string(),
-            DB_HOST: Joi.strict()
+            DB_HOST: Joi.strict(),
+            DB_DURATION: Joi.number().default(3000),
+            UPLOAD_DEST: Joi.string().default('/uploads'),
         })
 
         const { error, value: validatedEnvConfig } = Joi.validate(
@@ -64,6 +66,14 @@ export class ConfigService {
 
     get host(): string {
         return this.envConfig.HOST
+    }
+
+    get dbDuration(): number {
+        return Number(this.envConfig.DB_DURATION)
+    }
+
+    get uploadDest(): string {
+        return this.envConfig.UPLOAD_DEST
     }
 
     get(key: string) {

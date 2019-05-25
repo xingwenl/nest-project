@@ -1,6 +1,6 @@
-import { Inject, Req } from '@nestjs/common';
+import { Inject, Req, Param, Query } from '@nestjs/common';
 import { ArticleService } from './article.service';
-import { AddTypeDto, ArticleDto } from './dto';
+import { AddTypeDto, ArticleDto, EditArticleDto } from './dto';
 import { JwtAuth } from './../../../common/decorator/jwt-auth.decorator';
 import { Controller, Get, Post, Body } from '@nestjs/common';
 
@@ -11,10 +11,17 @@ export class ArticleController {
         private readonly articleService: ArticleService
     ){}
 
-    @Get()
-    all() {
-        return 'all'
+    @Get(":id")
+    one(@Param('id') id: string) {
+        return this.articleService.findOne(id);
     }
+
+    @Get()
+    all(@Query('page') page: number, @Query('size') size: number ) {
+        return this.articleService.findAll(page, size)
+    }
+
+    
 
     @Post()
     @JwtAuth()
@@ -23,8 +30,8 @@ export class ArticleController {
     }
 
     @Post('edit')
-    edit() {
-        return 'edit'
+    edit(@Body() articleDto: EditArticleDto) {
+        return this.articleService.edit(articleDto)
     }
 
     @Get('type')

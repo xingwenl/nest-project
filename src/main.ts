@@ -1,4 +1,5 @@
 import { NestFactory, Reflector } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from "./common/filters/http-exception.filter";
 import { RolesGuard } from "./common/guard/roles.guard";
@@ -7,9 +8,14 @@ import { JwtAuthGuard } from "./common/guard/jwt-auth.guard";
 import { CustomValidationPipe } from "./common/pipe/validation.pipe";
 // import { CustomLogger } from './module/logger/logger';
 import { ResponseInterceptor } from './common/interceptors/response';
+
+import { join } from 'path'
 // import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.useStaticAssets(join(__dirname, '..', 'static'), {
+      prefix: '/static/'
+  })
   // app.useLogger(app.get(CustomLogger))
   app.setGlobalPrefix('api');
   // 异常处理

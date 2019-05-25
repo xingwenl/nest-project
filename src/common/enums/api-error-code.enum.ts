@@ -9,4 +9,8 @@ export enum ApiErrorCode {
     TOKEN_INVALID = 401, //token错误
 
     DUPLICATE_VALUES = 402, // 值重复
+
+    ARTICLE_TYPE_INVALID = 403, //文章类型错误
+
+    NOT_FUND = 404, //未找到资源
 }

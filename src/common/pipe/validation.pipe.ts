@@ -1,6 +1,6 @@
 import { PipeTransform, ArgumentMetadata, BadRequestException, Injectable } from '@nestjs/common';
 import { validate } from 'class-validator';
-import { plainToClass, plainToClassFromExist } from 'class-transformer';
+import { plainToClass, classToClass, serialize } from 'class-transformer';
 import { httpRes, ApiErrorCode } from '../help/http.response';
 
 /**
@@ -14,7 +14,10 @@ export class CustomValidationPipe implements PipeTransform<any> {
             return value;
         }
         const object = plainToClass(metatype, value);
-        const errors = await validate(object);
+        
+        const errors = await validate(object, {
+            whitelist: true // 自动剥离我不想要的属性 很舒服啊
+        });
         if (errors.length > 0) {
             const error = errors[0]
             //  只返回错误消息，其他暂时不返回
@@ -26,7 +29,7 @@ export class CustomValidationPipe implements PipeTransform<any> {
             }
             throw httpRes(ApiErrorCode.PARAMS_INVALID, '参数错误', error)
         }
-        return value;
+        return object;
     }
 
     private toValidate(metatype): boolean {
