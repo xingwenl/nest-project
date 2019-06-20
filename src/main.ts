@@ -10,12 +10,17 @@ import { CustomValidationPipe } from "./common/pipe/validation.pipe";
 import { ResponseInterceptor } from './common/interceptors/response';
 
 import { join } from 'path'
+import * as cors from "cors";
 // import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, '..', 'static'), {
       prefix: '/static/'
   })
+  app.use(cors({
+      origin: 'http://localhost:3002',
+      credentials: true
+  }))
   // app.useLogger(app.get(CustomLogger))
   app.setGlobalPrefix('api');
   // 异常处理

@@ -39,7 +39,7 @@ export class ArticleService {
 
     getType() {
         return this.articleTypeRep.find({
-            select: ['id', 'title']
+            select: ['id', 'title', 'img']
         })
     }
 

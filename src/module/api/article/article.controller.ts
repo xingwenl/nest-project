@@ -1,4 +1,4 @@
-import { Inject, Req, Param, Query } from '@nestjs/common';
+import { Inject, Req, Param, Query, Header } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { AddTypeDto, ArticleDto, EditArticleDto } from './dto';
 import { JwtAuth } from './../../../common/decorator/jwt-auth.decorator';
@@ -10,6 +10,11 @@ export class ArticleController {
     constructor(
         private readonly articleService: ArticleService
     ){}
+
+    @Get('type')
+    async type() {
+        return await this.articleService.getType()
+    }
 
     @Get(":id")
     one(@Param('id') id: string) {
@@ -34,10 +39,7 @@ export class ArticleController {
         return this.articleService.edit(articleDto)
     }
 
-    @Get('type')
-    type() {
-        return this.articleService.getType()
-    }
+   
     
 
     @Post('add_type') 
