@@ -26,8 +26,10 @@ export class ArticleService {
                 null
             )
         }
+        console.log(addType)
         await this.articleTypeRep.insert({
-            title: addType.title
+            title: addType.title,
+            img: addType.img
         })
         return addType
     }

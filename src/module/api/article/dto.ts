@@ -3,6 +3,7 @@ export class AddTypeDto {
     @IsString()
     title: string;
     
+    @IsOptional()
     img: string
 } 
 
@@ -13,6 +14,7 @@ export class EditTypeDto {
     @IsString()
     title: string;
 
+    @IsOptional()
     img: string
 }
 

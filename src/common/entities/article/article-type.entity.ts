@@ -11,7 +11,9 @@ export class ArticleType {
     title: string;
 
 
-    @Column()
+    @Column({
+        default: ''
+    })
     img: string;
 
     @CreateDateColumn()

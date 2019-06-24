@@ -18,7 +18,8 @@ async function bootstrap() {
       prefix: '/static/'
   })
   app.use(cors({
-      origin: 'http://localhost:3002',
+    //   origin: 'http://localhost:3002',
+      origin: '*',
       credentials: true
   }))
   // app.useLogger(app.get(CustomLogger))
