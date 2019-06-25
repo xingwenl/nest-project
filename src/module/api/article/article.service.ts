@@ -26,12 +26,11 @@ export class ArticleService {
                 null
             )
         }
-        console.log(addType)
-        await this.articleTypeRep.insert({
+        let res = await this.articleTypeRep.save({
             title: addType.title,
             img: addType.img
         })
-        return addType
+        return res
     }
 
     async editType() {

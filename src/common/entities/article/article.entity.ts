@@ -33,8 +33,15 @@ export class Article {
     })
     memo: string
 
-    @Column()
+    @Column({
+        comment: 'md的内容'
+    })
     content: string;
+
+    @Column({
+        comment: 'html的内容'
+    })
+    render_content: string;
 
     @CreateDateColumn()
     create_time: Date;

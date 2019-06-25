@@ -1,6 +1,7 @@
-import { IsString, IsInt, IsOptional } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsNotEmpty } from 'class-validator';
 export class AddTypeDto {
     @IsString()
+    @IsNotEmpty()
     title: string;
     
     @IsOptional()
@@ -32,6 +33,9 @@ export class ArticleDto {
 
     @IsString()
     content: string;
+
+    @IsString()
+    render_content: string;
 
     @IsOptional()
     @IsInt()

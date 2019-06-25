@@ -8,7 +8,7 @@ import { JwtAuthGuard } from "./common/guard/jwt-auth.guard";
 import { CustomValidationPipe } from "./common/pipe/validation.pipe";
 // import { CustomLogger } from './module/logger/logger';
 import { ResponseInterceptor } from './common/interceptors/response';
-
+import { Logger } from '@nestjs/common';
 import { join } from 'path'
 import * as cors from "cors";
 // import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -57,6 +57,9 @@ async function bootstrap() {
   SwaggerModule.setup('doc', app, document);
   */
   
+//   Logger.log(`Server running on http://localhost:3000`)
+  Logger.error('这是出错信息')
   await app.listen(3000);
+  Logger.log(`Server running on http://localhost:3000`)
 }
 bootstrap();
