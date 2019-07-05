@@ -11,7 +11,35 @@ import { ResponseInterceptor } from './common/interceptors/response';
 import { Logger } from '@nestjs/common';
 import { join } from 'path'
 import * as cors from "cors";
-// import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
+
+
+
+function initSwagger(app) {
+    // 接口文档
+    const options = new DocumentBuilder()
+        .setTitle('xingwen')
+        .setDescription('xingwenceshi ')
+        .setVersion('1.0')
+        .addTag('user')
+        .setBasePath('/api')
+        .setHost('localhost:3000')
+        .addBearerAuth() // 启用token验证
+        .build()
+        
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup('doc', app, document);
+    // http://localhost:3000/doc/api
+    Logger.log(`Doc running on http://localhost:3000/doc/api`)
+}
+
+
+
+
+
+
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, '..', 'static'), {
@@ -43,22 +71,8 @@ async function bootstrap() {
   app.useGlobalPipes(new CustomValidationPipe())
   
 
-  // 接口文档
-  /** 
-  const options = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
-    .setVersion('1.0')
-    .addTag('cats')
-    .setBasePath('/api')
-    .setHost('localhost:3000')
-    .build()
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('doc', app, document);
-  */
+  initSwagger(app)
   
-//   Logger.log(`Server running on http://localhost:3000`)
-  Logger.error('这是出错信息')
   await app.listen(3000);
   Logger.log(`Server running on http://localhost:3000`)
 }

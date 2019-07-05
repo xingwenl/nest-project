@@ -3,7 +3,9 @@ import { ArticleService } from './article.service';
 import { AddTypeDto, ArticleDto, EditArticleDto } from './dto';
 import { JwtAuth } from './../../../common/decorator/jwt-auth.decorator';
 import { Controller, Get, Post, Body } from '@nestjs/common';
+import { ApiUseTags } from "@nestjs/swagger";
 
+@ApiUseTags('article')
 @Controller('article')
 export class ArticleController {
 

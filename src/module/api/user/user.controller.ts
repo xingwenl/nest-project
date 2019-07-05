@@ -2,8 +2,11 @@ import { Controller, Post, Body, Get,  Request, Req } from '@nestjs/common';
 import { LoginDto, RegisterDto, EditDto } from './dto';
 import { UserService } from './user.service';
 import { JwtAuth } from '../../../common/decorator/jwt-auth.decorator';
+import { ApiUseTags, ApiBearerAuth } from "@nestjs/swagger";
 
 
+@ApiUseTags('user')
+@ApiBearerAuth()
 @Controller('user')
 export class UserController {
     constructor(private userService: UserService) {}
