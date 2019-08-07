@@ -1,5 +1,5 @@
 import { AddTypeDto, ArticleDto, EditArticleDto } from './dto';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ArticleType } from './../../../common/entities/article/article-type.entity';
@@ -60,17 +60,28 @@ export class ArticleService {
     }
 
     async findOne(id: string) {
-        return await this.articleRep.findOne(id) || {}
+        Logger.log(id)
+        let res = await this.articleRep.findOne(id)
+        await this.articleRep.update(id, {
+            look_num: res.look_num + 1
+        })
+        return res
     }
 
-    async findAll(page = 0, size = 10) {
+    async findAll(page = 0, size = 10, type_id = 0) {
+        if (!type_id) {
+            httpRes(ApiErrorCode.NOT_FUND, 'type_id 不存在');
+        }
         return await this.articleRep.find({
             order: {
                 sort: "DESC",
                 create_time: "DESC"
             },
             skip: page * size,
-            take: size
+            take: size,
+            where: {
+                type_id: type_id
+            }
         })
     }
 
@@ -92,5 +103,15 @@ export class ArticleService {
             id: articleDto.id,
         }, articleDto)
         return null
+    }
+
+
+    async home() {
+        let allType = await this.getType()
+        if (allType && allType.length) {
+            let allArtice = await Promise.all(allType.map(obj => this.findAll(0, 5, obj.id)))
+            return allArtice.filter(obj => obj.length)
+        }
+        return []
     }
 }

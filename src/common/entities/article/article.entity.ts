@@ -66,4 +66,10 @@ export class Article {
         default: 0
     })
     look_num: number;
+
+    @Column({
+        comment: '评论数',
+        default: 0
+    })
+    reply_num: number;
 }

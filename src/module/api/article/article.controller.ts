@@ -3,7 +3,7 @@ import { ArticleService } from './article.service';
 import { AddTypeDto, ArticleDto, EditArticleDto } from './dto';
 import { JwtAuth } from './../../../common/decorator/jwt-auth.decorator';
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { ApiUseTags } from "@nestjs/swagger";
+import { ApiUseTags, ApiOperation } from "@nestjs/swagger";
 
 @ApiUseTags('article')
 @Controller('article')
@@ -13,9 +13,16 @@ export class ArticleController {
         private readonly articleService: ArticleService
     ){}
 
+    @ApiOperation({title: "获取类型 🀄️️️"})
     @Get('type')
     async type() {
         return await this.articleService.getType()
+    }
+
+    @ApiOperation({title: "首页的接口", description: '首页坑货'})
+    @Get('home')
+    home() {
+        return this.articleService.home()
     }
 
     @Get(":id")
@@ -24,10 +31,10 @@ export class ArticleController {
     }
 
     @Get()
-    all(@Query('page') page: number, @Query('size') size: number ) {
-        return this.articleService.findAll(page, size)
+    all(@Query('page') page: number, @Query('size') size: number, @Query('type_id') type_id?: number) {
+        return this.articleService.findAll(page, size, type_id)
     }
-
+    
     
 
     @Post()
