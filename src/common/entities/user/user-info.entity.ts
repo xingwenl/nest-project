@@ -19,5 +19,8 @@ export class Userinfo {
 
     @UpdateDateColumn()
     update_time: Date;
+
+    @Column({comment: '角色id， 用来判断权限'})
+    roles_id: number;
 }
 
