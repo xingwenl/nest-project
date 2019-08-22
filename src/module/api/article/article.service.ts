@@ -72,7 +72,7 @@ export class ArticleService {
         if (!type_id) {
             httpRes(ApiErrorCode.NOT_FUND, 'type_id 不存在');
         }
-        return await this.articleRep.find({
+        let res = await this.articleRep.findAndCount({
             order: {
                 sort: "DESC",
                 create_time: "DESC"
@@ -83,6 +83,23 @@ export class ArticleService {
                 type_id: type_id
             }
         })
+
+        // let res = await this.articleRep.find({
+        //     order: {
+        //         sort: "DESC",
+        //         create_time: "DESC"
+        //     },
+        //     skip: page * size,
+        //     take: size,
+        //     where: {
+        //         type_id: type_id
+        //     }
+        // })
+        return {
+            count: res[1],
+            data: res[0],
+            type_id: type_id
+        }
     }
 
     async edit(articleDto: EditArticleDto) {
@@ -110,7 +127,7 @@ export class ArticleService {
         let allType = await this.getType()
         if (allType && allType.length) {
             let allArtice = await Promise.all(allType.map(obj => this.findAll(0, 5, obj.id)))
-            return allArtice.filter(obj => obj.length)
+            return allArtice.filter(obj => obj.count)
         }
         return []
     }
