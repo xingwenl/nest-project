@@ -12,6 +12,7 @@ import { Logger } from '@nestjs/common';
 import { join } from 'path'
 import * as cors from "cors";
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { CustomLogger } from './module/logger/logger';
 
 
 
@@ -41,7 +42,9 @@ function initSwagger(app) {
 
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+      logger: false
+  });
   app.useStaticAssets(join(__dirname, '..', 'static'), {
       prefix: '/static/'
   })
@@ -50,6 +53,8 @@ async function bootstrap() {
       origin: '*',
       credentials: true
   }))
+
+//   app.useLogger(app.get(CustomLogger))
   // app.useLogger(app.get(CustomLogger))
   app.setGlobalPrefix('api');
   // 异常处理
@@ -74,6 +79,6 @@ async function bootstrap() {
   initSwagger(app)
   
   await app.listen(3000);
-  Logger.log(`Server running on http://localhost:3000`)
+//   Logger.log(`Server running on http://localhost:3000`)
 }
 bootstrap();
