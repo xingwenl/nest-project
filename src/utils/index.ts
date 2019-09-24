@@ -1,3 +1,4 @@
+import { Logger } from "@nestjs/common";
 
 
 
@@ -40,4 +41,13 @@ export function formatDate(time=0, fmt = 'yyyyMMddhhmmss') {
             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 
     return fmt;
+}
+
+export function jsonToObj(json: string) {
+    try {
+        return JSON.parse(json)
+    } catch (error) {
+        Logger.error('1', 'jsonToObj-catch', error)
+        return {}
+    }
 }

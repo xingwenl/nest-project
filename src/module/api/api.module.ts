@@ -8,10 +8,12 @@ import { ArticleController } from './article/article.controller';
 import { UploadController } from "./upload/upload.controller";
 import { UploadService } from "./upload/upload.service";
 import { LoggerMiddleware } from 'src/common/middleware/logger.middleware';
+import { ConfigService } from './config/config.service';
+import { ConfigController } from './config/config.controller';
 
 @Module({
-  controllers: [ UserController, ArticleController, UploadController],
-  providers: [UserService, ArticleService, UploadService],
+  controllers: [ UserController, ArticleController, UploadController, ConfigController],
+  providers: [UserService, ArticleService, UploadService, ConfigService],
   exports: [UserService]
 })
 export class ApiModule implements NestModule {

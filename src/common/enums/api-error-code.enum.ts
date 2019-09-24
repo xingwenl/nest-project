@@ -4,6 +4,7 @@ export enum ApiErrorCode {
 
     USER_NOTFUND, // 用户没找到
     USER_HAVED, // 用户已存在
+    FAIL, //系统错误
 
     PARAMS_INVALID = 400, // 参数错误
     TOKEN_INVALID = 401, //token错误

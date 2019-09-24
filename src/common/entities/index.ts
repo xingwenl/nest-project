@@ -4,6 +4,7 @@ import { UserRecord } from "./user/user-record.entity";
 import { Article } from "./article/article.entity";
 import { ArticleType } from "./article/article-type.entity";
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Config } from './config/config.entity';
 
 
 export const Entities = [
@@ -11,7 +12,8 @@ export const Entities = [
     UserRecord,
     Article,
     ArticleType,
-    UploadRecords
+    UploadRecords,
+    Config
 ]
 
 export const EntitiesModule = TypeOrmModule.forFeature([
