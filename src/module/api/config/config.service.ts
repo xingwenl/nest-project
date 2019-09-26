@@ -30,7 +30,7 @@ export class ConfigService {
             }
         })
         const res = await this.configRep.find({
-            select: [ 'key', 'type', 'val' ],
+            select: [ 'key', 'category', 'val', 'id' ],
             where: whereOptions
         })
         if (res) {
@@ -52,7 +52,7 @@ export class ConfigService {
     async setConfig(params: ConfigDto, type: string) {
         try {
             await this.configRep.insert({
-                type: type,
+                category: type,
                 key: params.key,
                 val: params.val
             })

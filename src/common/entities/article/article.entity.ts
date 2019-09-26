@@ -26,6 +26,11 @@ export class Article {
         comment: '文章类型id'
     })
     type_id: number;
+
+    @Column({
+        comment: '标签id'
+    })
+    label_id: number
     
     @Column({
         comment: '备注',

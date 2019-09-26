@@ -1,18 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class Config {
+export class ArticleLabel {
     @PrimaryGeneratedColumn()
     id: number
 
     @Column()
-    category: string
-
-    @Column()
-    key: string
-    
-    @Column()
-    val: string
-
-    
+    label: string
 }
