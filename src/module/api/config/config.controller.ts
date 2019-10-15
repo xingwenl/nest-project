@@ -1,7 +1,7 @@
-import { Controller, Get, Query, Inject, Post, Body } from "@nestjs/common";
+import { Controller, Get, Query, Inject, Post, Body, Param } from "@nestjs/common";
 import { ConfigService } from "./config.service";
-import { ApiUseTags, ApiImplicitQuery, ApiOperation } from "@nestjs/swagger";
-import { ConfigDto } from "./dto";
+import { ApiUseTags, ApiImplicitQuery, ApiOperation, ApiModelProperty } from "@nestjs/swagger";
+import { ConfigDto, ConfigEditDto } from "./dto";
 
 @ApiUseTags('config')
 @Controller('config')
@@ -18,8 +18,17 @@ export class ConfigController {
 
     @Get('/')
     @ApiOperation({title: "配置", description: '获取常用的配置'})
-    async getConfigByName(@Query('names') names: string) {
-        return this.configService.config(names, 'test')
+    @ApiModelProperty({
+        required: false,
+    })
+    async getConfigByName(@Query('names') names?: string) {
+        return this.configService.config('test', names)
+    }
+
+    @Post('/edit')
+    @ApiOperation({title: '修改'})
+    async edit(@Body() params: ConfigEditDto) {
+        return this.configService.editConfig(params, 'test')
     }
 
     @Post('/set')
