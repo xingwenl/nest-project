@@ -1,11 +1,11 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add vuelidate
+  /usr/local/bin/node /usr/local/bin/yarn add @nestjs/websockets @nestjs/platform-socket.io --registry https://registry.npm.taobao.org/
 
 PATH: 
-  /Users/lixingwen/.rvm/gems/ruby-2.4.1/bin:/Users/lixingwen/.rvm/gems/ruby-2.4.1@global/bin:/Users/lixingwen/.rvm/rubies/ruby-2.4.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/lixingwen/.rvm/gems/ruby-2.4.1/bin:/Users/lixingwen/.rvm/gems/ruby-2.4.1@global/bin:/Users/lixingwen/.rvm/rubies/ruby-2.4.1/bin:/Users/lixingwen/.rvm/bin:/Users/lixingwen/Library/Android/sdk/tools:/Users/lixingwen/Library/Android/sdk/tools/bin:/Users/lixingwen/Library/Android/sdk/platform-tools:/Users/lixingwen/Library/Android/sdk/emulator:/Users/lixingwen/.rvm/bin:/Users/lixingwen/Library/Android/sdk/tools:/Users/lixingwen/Library/Android/sdk/tools/bin:/Users/lixingwen/Library/Android/sdk/platform-tools:/Users/lixingwen/Library/Android/sdk/emulator
+  /Users/lixingwen/.rvm/gems/ruby-2.4.1/bin:/Users/lixingwen/.rvm/gems/ruby-2.4.1@global/bin:/Users/lixingwen/.rvm/rubies/ruby-2.4.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/lixingwen/.rvm/gems/ruby-2.4.1/bin:/Users/lixingwen/.rvm/gems/ruby-2.4.1@global/bin:/Users/lixingwen/.rvm/rubies/ruby-2.4.1/bin:/Users/lixingwen/.rvm/bin:/Users/lixingwen/.rvm/bin:/Users/lixingwen/Library/Android/sdk/tools:/Users/lixingwen/Library/Android/sdk/tools/bin:/Users/lixingwen/Library/Android/sdk/platform-tools:/Users/lixingwen/Library/Android/sdk/emulator
 
 Yarn version: 
-  1.16.0
+  1.17.3
 
 Node version: 
   10.15.0
@@ -14,8 +14,8 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.npmjs.org/vuelidate: ETIMEDOUT
-      at Timeout._onTimeout (/usr/local/lib/node_modules/yarn/lib/cli.js:130250:19)
+  Error: https://registry.npmjs.org/@nestjs/swagger/-/swagger-3.0.2.tgz: ETIMEDOUT
+      at Timeout._onTimeout (/usr/local/lib/node_modules/yarn/lib/cli.js:141124:19)
       at ontimeout (timers.js:436:11)
       at tryOnTimeout (timers.js:300:5)
       at listOnTimeout (timers.js:263:5)

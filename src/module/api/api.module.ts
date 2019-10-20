@@ -11,9 +11,11 @@ import { LoggerMiddleware } from 'src/common/middleware/logger.middleware';
 import { ConfigService } from './config/config.service';
 import { ConfigController } from './config/config.controller';
 
+import { EventsGateway } from './socket/events.gateway'
+
 @Module({
   controllers: [ UserController, ArticleController, UploadController, ConfigController],
-  providers: [UserService, ArticleService, UploadService, ConfigService],
+  providers: [UserService, ArticleService, UploadService, ConfigService, EventsGateway],
   exports: [UserService]
 })
 export class ApiModule implements NestModule {

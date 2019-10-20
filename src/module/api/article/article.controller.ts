@@ -10,7 +10,7 @@ import { ApiUseTags, ApiOperation } from "@nestjs/swagger";
 export class ArticleController {
 
     constructor(
-        private readonly articleService: ArticleService
+        private readonly articleService: ArticleService,
     ){}
 
     @ApiOperation({title: "获取类型 🀄️️️"})

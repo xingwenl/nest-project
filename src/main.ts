@@ -14,6 +14,8 @@ import * as cors from "cors";
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { CustomLogger } from './module/logger/logger';
 
+import { WsAdapter } from '@nestjs/platform-ws';
+
 
 
 
@@ -75,10 +77,10 @@ async function bootstrap() {
   // 基础参数判断
   app.useGlobalPipes(new CustomValidationPipe())
   
-
+  app.useWebSocketAdapter(new WsAdapter(app))
   initSwagger(app)
   
   await app.listen(3000);
-//   Logger.log(`Server running on http://localhost:3000`)
+  Logger.log(`Server running on http://localhost:3000`)
 }
 bootstrap();
