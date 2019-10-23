@@ -15,9 +15,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { CustomLogger } from './module/logger/logger';
 
 import { WsAdapter } from '@nestjs/platform-ws';
+// import { AbstractWsAdapter } from "@nestjs/websockets";
 
-
-
+import { RedisIoAdapter } from "./common/adapter/redis.io.adapter";
 
 function initSwagger(app) {
     // 接口文档
@@ -77,7 +77,7 @@ async function bootstrap() {
   // 基础参数判断
   app.useGlobalPipes(new CustomValidationPipe())
   
-  app.useWebSocketAdapter(new WsAdapter(app))
+//   app.useWebSocketAdapter(new RedisIoAdapter(app))
   initSwagger(app)
   
   await app.listen(3000);
