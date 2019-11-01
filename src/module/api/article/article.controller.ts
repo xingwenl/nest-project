@@ -24,16 +24,24 @@ export class ArticleController {
     home() {
         return this.articleService.home()
     }
+    @Get('socket')
+    async socket(@Query('id') id: string) {
+        console.log('ssss', id)
+        return this.articleService.getSocket(id)
+    }
 
     @Get(":id")
     one(@Param('id') id: string) {
         return this.articleService.findOne(id);
     }
+    
 
     @Get()
     all(@Query('page') page: number, @Query('size') size: number, @Query('type_id') type_id?: number) {
         return this.articleService.findAll(page, size, type_id)
     }
+
+    
     
     
 
@@ -62,4 +70,6 @@ export class ArticleController {
     editType() {
         return 'edit/type'
     }
+
+   
 }

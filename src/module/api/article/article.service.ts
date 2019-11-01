@@ -1,11 +1,14 @@
 import { AddTypeDto, ArticleDto, EditArticleDto } from './dto';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ArticleType } from './../../../common/entities/article/article-type.entity';
 import { Article } from './../../../common/entities/article/article.entity';
 import { httpRes, ApiErrorCode } from 'src/common/help/http.response';
 import { isEmptyObj } from 'src/utils';
+import { EventsGateway } from "../socket/events.gateway";
+
+import { Logger } from "../../logger/logger";
 @Injectable()
 export class ArticleService {
     constructor(
@@ -13,6 +16,7 @@ export class ArticleService {
         private readonly articleRep: Repository<Article>,
         @InjectRepository(ArticleType)
         private readonly articleTypeRep: Repository<ArticleType>,
+        private readonly eventsGateway: EventsGateway
     ){}
 
     async addType(addType: AddTypeDto) {
@@ -36,6 +40,25 @@ export class ArticleService {
     async editType() {
         const type = await this.articleTypeRep.findByIds([0])
         
+    }
+
+    getSocket(id: string): any {
+        // this.eventsGateway.server.emit('events', {data: '我是type'})
+
+        // for (const key in this.eventsGateway.server.sockets) {
+        //     console.log(key)
+        //     console.log(this.eventsGateway.server.sockets[key].username)
+        //     console.log(this.eventsGateway.server.sockets[key].room)
+        //     // console.log(this.eventsGateway.server.sockets[key].handshake.headers.cookie)
+        // }
+        // console.log('getSocket', id)
+        // console.log('clients', this.eventsGateway.clients[id])
+
+        if (this.eventsGateway.server.sockets[id]) {
+            this.eventsGateway.server.sockets[id].emit('events', {data: this.eventsGateway.clients[id]})
+        }
+
+        return this.eventsGateway.clients
     }
 
     getType() {
