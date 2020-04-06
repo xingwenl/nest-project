@@ -1,6 +1,6 @@
 import { Inject, Req, Param, Query, Header, HttpCode, Options } from '@nestjs/common';
 import { ArticleService } from './article.service';
-import { AddTypeDto, ArticleDto, EditArticleDto } from './dto';
+import { AddTypeDto, ArticleDto, EditArticleDto, DeleteArticleDto } from './dto';
 import { JwtAuth } from './../../../common/decorator/jwt-auth.decorator';
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ApiUseTags, ApiOperation } from "@nestjs/swagger";
@@ -37,8 +37,8 @@ export class ArticleController {
     
 
     @Get()
-    all(@Query('page') page: number, @Query('size') size: number, @Query('type_id') type_id?: number) {
-        return this.articleService.findAll(page, size, type_id)
+    all(@Query('page') page: number, @Query('size') size: number, @Query('type_id') type_id?: number, @Query('sort_by') sort_by?: string, @Query('desc') desc?: number) {
+        return this.articleService.findAll(page, size, type_id, sort_by, desc)
     }
 
     
@@ -56,7 +56,10 @@ export class ArticleController {
         return this.articleService.edit(articleDto)
     }
 
-   
+    @Post('delete')
+    delete(@Body() body: DeleteArticleDto) {
+        return this.articleService.delete(body);
+    }
     
 
     @Post('add_type') 

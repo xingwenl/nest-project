@@ -1,3 +1,5 @@
+import { PermissionsEntity } from './permissions/permissions.entity';
+import { Storage } from './storage/storage.entity';
 import { UploadRecords } from './upload/upload-records.entity';
 import { Userinfo } from "./user/user-info.entity";
 import { UserRecord } from "./user/user-record.entity";
@@ -13,7 +15,9 @@ export const Entities = [
     Article,
     ArticleType,
     UploadRecords,
-    Config
+    Config,
+    Storage,
+    PermissionsEntity
 ]
 
 export const EntitiesModule = TypeOrmModule.forFeature([

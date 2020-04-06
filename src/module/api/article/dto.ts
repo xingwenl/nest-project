@@ -46,6 +46,11 @@ export class ArticleDto {
     sort?: number;
 }
 
+export class DeleteArticleDto {
+    @IsInt()
+    id: number;
+}
+
 export class EditArticleDto {
 
     @IsInt()
@@ -75,4 +80,8 @@ export class EditArticleDto {
     @IsOptional()
     @IsInt()
     sort?: number;
+
+    @IsOptional()
+    @IsString()
+    render_content?: string;
 }

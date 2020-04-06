@@ -39,12 +39,16 @@ export class Article {
     memo: string
 
     @Column({
-        comment: 'md的内容'
+        comment: 'md的内容',
+        type: 'text',
+        length: 0,
     })
     content: string;
 
     @Column({
-        comment: 'html的内容'
+        comment: 'html的内容',
+        type: 'text',
+        length: 0
     })
     render_content: string;
 

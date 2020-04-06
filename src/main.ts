@@ -12,7 +12,7 @@ import { Logger } from '@nestjs/common';
 import { join } from 'path'
 import * as cors from "cors";
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { CustomLogger } from './module/logger/logger';
+// import { CustomLogger } from './module/logger/logger';
 
 import { WsAdapter } from '@nestjs/platform-ws';
 // import { AbstractWsAdapter } from "@nestjs/websockets";
@@ -63,10 +63,10 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   // 成功处理
   app.useGlobalInterceptors(new ResponseInterceptor())
-  // 角色处理
-  app.useGlobalGuards(new RolesGuard(new Reflector()));
   // token验证处理
   app.useGlobalGuards(new JwtAuthGuard(new Reflector()));
+  // 角色处理
+  app.useGlobalGuards(new RolesGuard(new Reflector()));
   // app.useGlobalPipes(new ValidationPipe({
   //   transform: true,
   //   validationError: {

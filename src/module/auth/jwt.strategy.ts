@@ -19,6 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
     async validate(req: Request, payload: JwtPayload, next: Function) {
         const user = await this.authService.validateUser(payload);
+        console.log('validate, user', user);
         if (!user) {
             throw httpRes(ApiErrorCode.TOKEN_INVALID, 'token无效');
         }

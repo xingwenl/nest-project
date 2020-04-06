@@ -1,4 +1,4 @@
-import { AddTypeDto, ArticleDto, EditArticleDto } from './dto';
+import { AddTypeDto, ArticleDto, EditArticleDto, DeleteArticleDto } from './dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -8,7 +8,7 @@ import { httpRes, ApiErrorCode } from 'src/common/help/http.response';
 import { isEmptyObj } from 'src/utils';
 import { EventsGateway } from "../socket/events.gateway";
 
-import { Logger } from "../../logger/logger";
+// import { Logger } from "../../logger/logger";
 @Injectable()
 export class ArticleService {
     constructor(
@@ -83,7 +83,7 @@ export class ArticleService {
     }
 
     async findOne(id: string) {
-        Logger.log(id)
+        // Logger.log(id)
         let res = await this.articleRep.findOne(id)
         await this.articleRep.update(id, {
             look_num: res.look_num + 1
@@ -91,20 +91,24 @@ export class ArticleService {
         return res
     }
 
-    async findAll(page = 0, size = 10, type_id = 0) {
-        if (!type_id) {
-            httpRes(ApiErrorCode.NOT_FUND, 'type_id 不存在');
+    async findAll(page = 0, size = 10, type_id = 0, sort_by?: string, desc?: number) {
+        // if (!type_id) {
+        //     httpRes(ApiErrorCode.NOT_FUND, 'type_id 不存在');
+        // }
+        const where: any = {};
+        type_id && (where.type_id = type_id);
+        const orderVal = Number(desc) === 1 ? 'DESC' : 'ASC';
+        let order: any = { };
+        if (sort_by) {
+            order[sort_by] = orderVal
+        } else {
+            order = { sort: 'DESC', create_time: 'DESC', };
         }
         let res = await this.articleRep.findAndCount({
-            order: {
-                sort: "DESC",
-                create_time: "DESC"
-            },
+            order,
             skip: page * size,
             take: size,
-            where: {
-                type_id: type_id
-            }
+            where
         })
 
         // let res = await this.articleRep.find({
@@ -125,6 +129,14 @@ export class ArticleService {
         }
     }
 
+    async delete(dto: DeleteArticleDto) {
+        if (dto.id === null) httpRes(ApiErrorCode.PARAMS_INVALID, 'id未找到');
+        await this.articleRep.delete({
+            id: dto.id
+        })
+        return null;
+    }
+
     async edit(articleDto: EditArticleDto) {
         console.log(articleDto)
         let article = await this.articleRep.findOne({
@@ -139,9 +151,14 @@ export class ArticleService {
         //     ...articleDto,
         // }
         
-        await this.articleRep.update({
-            id: articleDto.id,
-        }, articleDto)
+        try {
+            await this.articleRep.update({
+                id: articleDto.id,
+            }, articleDto)
+        } catch (error) {
+            console.log(error);
+            httpRes(ApiErrorCode.FAIL, "系统错误")
+        }
         return null
     }
 

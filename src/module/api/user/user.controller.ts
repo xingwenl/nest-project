@@ -1,4 +1,5 @@
-import { Controller, Post, Body, Get,  Request, Req } from '@nestjs/common';
+import { Roles } from './../../../common/decorator/roles.decorator';
+import { Controller, Post, Body, Get,  Request, Req, Query } from '@nestjs/common';
 import { LoginDto, RegisterDto, EditDto } from './dto';
 import { UserService } from './user.service';
 import { JwtAuth } from '../../../common/decorator/jwt-auth.decorator';
@@ -64,5 +65,11 @@ export class UserController {
     async edit(@Body() editDto: EditDto, @Req() req: Request) {
         return await this.userService.edit(editDto, req)
     }
-    
+
+    @Get('userlist')
+    @Roles('admin')
+    @JwtAuth()
+    userlist(@Query('page') page, @Query('size') size, @Req() req) {
+        return this.userService.userlist(page, size);
+    }
 }

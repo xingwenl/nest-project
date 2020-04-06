@@ -1,3 +1,4 @@
+import { httpForbidden } from 'src/common/help/http.response';
 import { Injectable, CanActivate, ExecutionContext } from "@nestjs/common";
 import { Observable } from 'rxjs'
 import { Reflector } from "@nestjs/core";
@@ -9,13 +10,10 @@ export class RolesGuard implements CanActivate {
     canActivate(context: ExecutionContext): boolean {
         const roles = this.reflector.get<string[]>('roles', context.getHandler());
         if (!roles) return true;
-        const request = context.switchToHttp().getRequest();
+        const req = context.switchToHttp().getRequest();
         // console.log(request.headers.cookies)
-        if (roles.length > 0) {
-            if (roles.some(item => item === 'user')) {
-                return request.query.token
-            }
-        }
-        return true;
+        const user = req.user;
+        const hasRole = () => user.roles.some((role) => roles.includes(role));
+        return user && user.roles && hasRole() ? true : httpForbidden();
     }
 }

@@ -22,5 +22,8 @@ export class Userinfo {
 
     @Column({comment: '角色id， 用来判断权限'})
     roles_id: number;
+
+    @Column('simple-array')
+    roles: string[] = [];
 }
 

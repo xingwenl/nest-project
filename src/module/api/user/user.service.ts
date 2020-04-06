@@ -57,7 +57,6 @@ export class UserService  {
     }
 
     public async edit(editDto: EditDto, req: any) {
-        console.log(editDto)
         if (req.user) {
             const user = await this.userRepository.update({id: req.user.id}, editDto)
             if (user) {
@@ -69,5 +68,17 @@ export class UserService  {
             '失败',
             req.user
         )
+    }
+
+    async userlist(page = 0, size = 10) {
+        let res = await this.userRepository.findAndCount({
+            skip: page * size,
+            take: size,
+            select: ['age', 'create_time', 'username', 'roles', 'id'],
+        });
+        return {
+            count: res[1],
+            data: res[0]
+        };
     }
 }

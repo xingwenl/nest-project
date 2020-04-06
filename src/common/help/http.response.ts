@@ -29,3 +29,11 @@ export function httpRes(code: ApiErrorCode, message: string, data?: any, status 
     }
     return new ApiResponse(code, data, message)
 }
+
+export function httpForbidden() {
+    httpRes(
+        ApiErrorCode.FORBIDDEN,
+        '无权限'
+    )
+    return false;
+}
