@@ -1,8 +1,9 @@
-import { Module } from "@nestjs/common";
-// import { CustomLogger } from "./logger";
+import { Module, Global } from "@nestjs/common";
+import { CustomLogger } from "./logger";
 
+@Global()
 @Module({
-    providers: [],
-    exports: []
+    providers: [CustomLogger],
+    exports: [CustomLogger]
 })
 export class LoggerModule{}

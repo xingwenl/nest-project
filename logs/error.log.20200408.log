@@ -1,0 +1,14 @@
+[32m[Awesome-nest] 22653   - [39m2020-04-08 13:45:42    [33m[Response] [39m[31m[ERROR] "GET /api/article/sadfdasf][39m
+[31m" Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36[39m
+[31m TypeError: Cannot read property 'look_num' of undefined[39m
+[31m    at ArticleService.<anonymous> (/Users/lixingwen/Desktop/mygithub/nest-project/src/module/api/article/article.service.ts:89:27)[39m
+[31m    at Generator.next (<anonymous>)[39m
+[31m    at fulfilled (/Users/lixingwen/Desktop/mygithub/nest-project/src/module/api/article/article.service.ts:16:58)[39m
+[31m    at process._tickCallback (internal/process/next_tick.js:68:7)[39m [29, 29]
+[32m[Awesome-nest] 22714   - [39m2020-04-08 13:46:21    [33m[Response] [39m[31m[ERROR] "GET /api/article/sadfdasf"[39m
+[31m Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36[39m
+[31m TypeError: Cannot read property 'look_num' of undefined[39m
+[31m    at ArticleService.<anonymous> (/Users/lixingwen/Desktop/mygithub/nest-project/src/module/api/article/article.service.ts:89:27)[39m
+[31m    at Generator.next (<anonymous>)[39m
+[31m    at fulfilled (/Users/lixingwen/Desktop/mygithub/nest-project/src/module/api/article/article.service.ts:16:58)[39m
+[31m    at process._tickCallback (internal/process/next_tick.js:68:7)[39m [29, 29]

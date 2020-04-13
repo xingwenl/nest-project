@@ -26,7 +26,6 @@ export class ArticleController {
     }
     @Get('socket')
     async socket(@Query('id') id: string) {
-        console.log('ssss', id)
         return this.articleService.getSocket(id)
     }
 

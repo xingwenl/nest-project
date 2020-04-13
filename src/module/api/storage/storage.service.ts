@@ -11,15 +11,16 @@ export class StorageService {
         private readonly storageRep: Repository<Storage>
     ){}
 
-    async set(dto: StorageDto) {
-        const { key, value, creater_id, expires, intro } = dto;
+    async set(dto: StorageDto, creater_id: string) {
+        const { key, value, expires, intro } = dto;
         let res = await this.storageRep.findOne({
             key,
             creater_id
         })
+
         let expiresTmp: Date = null;
         if (expires) {
-            expiresTmp = expires.indexOf('/') === -1 ? new Date(+(new Date()) + Number(expires) * 1000) : new Date(expires)
+            expiresTmp = /\-|\//.test(expires.toString()) ? new Date(expires) : new Date(+(new Date()) + Number(expires) * 1000)
         }
 
         try {
@@ -47,14 +48,25 @@ export class StorageService {
         }
     }
 
-    async get(key: string, creater_id: string) {
+    async get(creater_id: string, key?: string, page=0, size=10) {
+        if (!key) {
+            let res = await this.storageRep.findAndCount({
+                skip: page * size,
+                take: size,
+                where: {
+                    creater_id
+                }
+            })
+            return {
+                count: res[1],
+                data: res[0]
+            }
+        }
         let res = await this.storageRep.findOne({
-            key: key,
-            creater_id: creater_id,
+            key,
+            creater_id
         }, {
-            select: [
-                'expires', 'id', 'intro', 'key', 'value'
-            ]
+            select: [ 'expires', 'id', 'intro', 'key', 'value' ]
         })
         if (res && res.expires) {
             const now = +(new Date());
@@ -65,12 +77,16 @@ export class StorageService {
                     "已过期"
                 )
             }
-            if (!res) httpRes(
-                ApiErrorCode.NOT_FUND,
-                '未找到值'
-            )
         }
+        if (!res) httpRes(
+            ApiErrorCode.NOT_FUND,
+            '未找到值'
+        )
         
         return res;
+    }
+
+    remove(key: string, creater_id: string) {
+
     }
 }

@@ -6,7 +6,7 @@ import { RolesGuard } from "./common/guard/roles.guard";
 import { JwtAuthGuard } from "./common/guard/jwt-auth.guard";
 // import { ValidationPipe, ValidationError} from "@nestjs/common";
 import { CustomValidationPipe } from "./common/pipe/validation.pipe";
-// import { CustomLogger } from './module/logger/logger';
+import { CustomLogger, httpLogger } from './module/logger/logger';
 import { ResponseInterceptor } from './common/interceptors/response';
 import { Logger } from '@nestjs/common';
 import { join } from 'path'
@@ -45,7 +45,7 @@ function initSwagger(app) {
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-      logger: false
+      logger: new Logger()
   });
   app.useStaticAssets(join(__dirname, '..', 'static'), {
       prefix: '/static/'
@@ -56,13 +56,14 @@ async function bootstrap() {
       credentials: true
   }))
 
-//   app.useLogger(app.get(CustomLogger))
+  app.use(httpLogger);
+  app.useLogger(app.get(CustomLogger));
   // app.useLogger(app.get(CustomLogger))
   app.setGlobalPrefix('api');
   // 异常处理
   app.useGlobalFilters(new HttpExceptionFilter());
   // 成功处理
-  app.useGlobalInterceptors(new ResponseInterceptor())
+  app.useGlobalInterceptors(new ResponseInterceptor(app.get(CustomLogger)))
   // token验证处理
   app.useGlobalGuards(new JwtAuthGuard(new Reflector()));
   // 角色处理

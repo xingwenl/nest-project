@@ -2,11 +2,6 @@ import { IsString, IsOptional } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { ApiOperation } from '@nestjs/swagger';
 export class StorageDto {
-    @ApiModelProperty({
-        description: '创建者 id ，',
-    })
-    @IsString()
-    creater_id: string;
 
     @ApiModelProperty({
         description: 'key'

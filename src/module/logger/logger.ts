@@ -5,6 +5,7 @@ import * as Util from 'util'
 import * as Moment from 'moment'
 import * as StackTrace from 'stacktrace-js'
 import Chalk from 'chalk'
+import { LoggerService } from '@nestjs/common';
 
 export enum LoggerLevel {
     ALL = 'ALL',
@@ -108,40 +109,43 @@ Log4js.addLayout('Awesome-nest', (logConfig: any) => {
 const logger = Log4js.getLogger()
 logger.level = LoggerLevel.TRACE
 
-export class Logger {
-    static trace(...args) {
-        logger.trace(Logger.getStackTrace(), ...args)
+const httpLog = Log4js.getLogger('http');
+export const httpLogger = Log4js.connectLogger(httpLog, { level: 'WARN', });
+
+export class CustomLogger implements LoggerService {
+    trace(...args) {
+        logger.trace(this.getStackTrace(), ...args)
     }
 
-    static debug(...args) {
-        logger.debug(Logger.getStackTrace(), ...args)
+    debug(...args) {
+        logger.debug(this.getStackTrace(), ...args)
     }
 
-    static log(...args) {
-        logger.info(Logger.getStackTrace(), ...args)
+    log(...args) {
+        logger.info(this.getStackTrace(), ...args)
     }
 
-    static info(...args) {
-        logger.info(Logger.getStackTrace(), ...args)
+    info(...args) {
+        logger.info(this.getStackTrace(), ...args)
     }
 
-    static warn(...args) {
-        logger.warn(Logger.getStackTrace(), ...args)
+    warn(...args) {
+        logger.warn(this.getStackTrace(), ...args)
     }
 
-    static warning(...args) {
-        logger.warn(Logger.getStackTrace(), ...args)
+    warning(...args) {
+        logger.warn(this.getStackTrace(), ...args)
     }
 
-    static error(...args) {
-        logger.error(Logger.getStackTrace(), ...args)
+    error(...args) {
+        logger.error(this.getStackTrace(), ...args)
     }
 
-    static fatal(...args) {
-        logger.fatal(Logger.getStackTrace(), ...args)
+    fatal(...args) {
+        logger.fatal(this.getStackTrace(), ...args)
     }
 
-    static getStackTrace(deep: number = 2): ContextTrace {
+    getStackTrace(deep: number = 2): ContextTrace {
         const stackList: StackTrace.StackFrame[] = StackTrace.getSync()
         const stackInfo: StackTrace.StackFrame = stackList[deep]
 
@@ -164,15 +168,37 @@ Log4js.configure({
         fileAppender: {
             type: 'DateFile',
             filename: './logs/prod.log',
-            pattern: '-yyyy-MM-dd.log',
+            pattern: 'yyyyMMdd.log',
             alwaysIncludePattern: true,
             layout: { type: 'Awesome-nest' },
             daysToKeep: 60
-        }
+        },
+        errorLog: {
+            type: 'file',
+            filename: './logs/error.log',
+            pattern: 'yyyyMMdd.log',
+            alwaysIncludePattern: true,
+            layout: { type: 'Awesome-nest' },
+        },
+        error: { type: "logLevelFilter", level: "error", appender: 'errorLog' },
+        //http请求日志  http请求日志需要app.use引用一下， 这样才会自动记录每次的请求信息 
+        httpLog: {
+            type: "file",
+            filename: "./logs/http.log",
+            pattern: "yyyyMMdd.log",
+            alwaysIncludePattern: true,
+            // keepFileExt: true,
+            layout: { type: 'Awesome-nest' },
+        },
     },
     categories: {
+        //appenders:采用的appender,取上面appenders项,level:设置级别
+        http: {
+            appenders: ['httpLog'],
+            level: "debug"
+        },
         default: {
-            appenders: ['fileAppender'],
+            appenders: ['fileAppender', 'error'],
             level: 'info'
         }
     },
