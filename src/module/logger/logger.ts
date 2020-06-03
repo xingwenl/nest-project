@@ -164,7 +164,7 @@ export class CustomLogger implements LoggerService {
 Log4js.configure({
   appenders: {
     fileAppender: {
-      type: 'DateFile',
+      type: 'dateFile',
       filename: './logs/prod.log',
       pattern: 'yyyyMMdd.log',
       alwaysIncludePattern: true,
