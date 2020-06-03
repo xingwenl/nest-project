@@ -11,7 +11,7 @@ import { ArticleType } from './../../../common/entities/article/article-type.ent
 import { Article } from './../../../common/entities/article/article.entity';
 import { httpRes, ApiErrorCode } from '../../../common/help/http.response';
 import { isEmptyObj } from '../../../utils';
-import { EventsGateway } from '../socket/events.gateway';
+// import { EventsGateway } from '../socket/events.gateway';
 
 // import { Logger } from "../../logger/logger";
 @Injectable()
@@ -21,7 +21,7 @@ export class ArticleService {
     private readonly articleRep: Repository<Article>,
     @InjectRepository(ArticleType)
     private readonly articleTypeRep: Repository<ArticleType>,
-    private readonly eventsGateway: EventsGateway,
+    // private readonly eventsGateway: EventsGateway,
   ) {}
 
   async addType(addType: AddTypeDto) {

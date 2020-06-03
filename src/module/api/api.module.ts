@@ -17,7 +17,7 @@ import { UploadService } from './upload/upload.service';
 import { LoggerMiddleware } from '../../common/middleware/logger.middleware';
 import { ConfigService } from './config/config.service';
 import { ConfigController } from './config/config.controller';
-import { EventsGateway } from './socket/events.gateway';
+// import { EventsGateway } from './socket/events.gateway';
 import { StorageController } from './storage/storage.controller';
 import { StorageService } from './storage/storage.service';
 import { VersionController } from './version/version.controller';
@@ -38,7 +38,7 @@ import { VersionService } from './version/version.service';
     ArticleService,
     UploadService,
     ConfigService,
-    EventsGateway,
+    // EventsGateway,
     StorageService,
     PermissionsService,
     VersionService,
