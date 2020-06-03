@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    这是postmssage
+    <script>
+        // 监听test.html发来的数据，延迟1秒返回数据
+        window.addEventListener('message', (event) => {
+            setTimeout(() => {
+                event.source.postMessage('sdfsdf', event.origin)
+            },1000)
+        })
+        window.name = 'nishihaobsma'
+        console.log(window)
+    </script>
+</body>
+</html>

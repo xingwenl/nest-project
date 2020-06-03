@@ -1,87 +1,83 @@
 import { IsString, IsInt, IsOptional, IsNotEmpty } from 'class-validator';
 export class AddTypeDto {
-    @IsString()
-    @IsNotEmpty()
-    title: string;
-    
-    @IsOptional()
-    img: string
-} 
+  @IsString()
+  @IsNotEmpty()
+  title: string;
 
-export class EditTypeDto {
-    @IsInt()
-    id: number;
-
-    @IsString()
-    title: string;
-
-    @IsOptional()
-    img: string
+  @IsOptional()
+  img: string;
 }
 
+export class EditTypeDto {
+  @IsInt()
+  id: number;
+
+  @IsString()
+  title: string;
+
+  @IsOptional()
+  img: string;
+}
 
 export class ArticleDto {
-    
-    @IsString()
-    title: string;
+  @IsString()
+  title: string;
 
-    @IsInt()
-    type_id: number;
-    
-    @IsString()
-    memo?: string
+  @IsInt()
+  type_id: number;
 
-    @IsString()
-    content: string;
+  @IsString()
+  memo?: string;
 
-    @IsString()
-    render_content: string;
+  @IsString()
+  content: string;
 
-    @IsOptional()
-    @IsInt()
-    is_top?: number;
+  @IsString()
+  render_content: string;
 
-    @IsOptional()
-    @IsInt()
-    sort?: number;
+  @IsOptional()
+  @IsInt()
+  is_top?: number;
+
+  @IsOptional()
+  @IsInt()
+  sort?: number;
 }
 
 export class DeleteArticleDto {
-    @IsInt()
-    id: number;
+  @IsInt()
+  id: number;
 }
 
 export class EditArticleDto {
+  @IsInt()
+  id: number;
 
-    @IsInt()
-    id: number
+  @IsOptional()
+  @IsString()
+  title: string;
 
-    @IsOptional()
-    @IsString()
-    title: string;
+  @IsOptional()
+  @IsInt()
+  type_id: number;
 
-    
-    @IsOptional()
-    @IsInt()
-    type_id: number;
-    
-    @IsOptional()
-    @IsString()
-    memo?: string
+  @IsOptional()
+  @IsString()
+  memo?: string;
 
-    @IsOptional()
-    @IsString()
-    content: string;
+  @IsOptional()
+  @IsString()
+  content: string;
 
-    @IsOptional()
-    @IsInt()
-    is_top?: number;
+  @IsOptional()
+  @IsInt()
+  is_top?: number;
 
-    @IsOptional()
-    @IsInt()
-    sort?: number;
+  @IsOptional()
+  @IsInt()
+  sort?: number;
 
-    @IsOptional()
-    @IsString()
-    render_content?: string;
+  @IsOptional()
+  @IsString()
+  render_content?: string;
 }

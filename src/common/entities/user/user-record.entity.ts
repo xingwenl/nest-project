@@ -1,22 +1,29 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('user_record')
 export class UserRecord {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    pwd: string;
+  @Column()
+  pwd: string;
 
-    @Column()
-    age: number;
+  @Column()
+  age: number;
 
-    @CreateDateColumn()
-    create_time: Date;
+  @CreateDateColumn()
+  create_time: Date;
 
-    @UpdateDateColumn()
-    update_time: Date;
+  @UpdateDateColumn()
+  update_time: Date;
 }

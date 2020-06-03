@@ -1,3 +1,1 @@
-export class UploadDto {
-    
-}
+export class UploadDto {}

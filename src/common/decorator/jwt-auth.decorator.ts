@@ -1,3 +1,3 @@
-import { SetMetadata } from "@nestjs/common";
+import { SetMetadata } from '@nestjs/common';
 
-export const JwtAuth = (...type: string[]) => SetMetadata('jwt', type)
+export const JwtAuth = (...type: string[]) => SetMetadata('jwt', type);

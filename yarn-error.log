@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add @types/webpack-env @types/node -D
+  /usr/local/bin/node /usr/local/bin/yarn install
 
 PATH: 
-  /Users/lixingwen/.rvm/gems/ruby-2.4.1/bin:/Users/lixingwen/.rvm/gems/ruby-2.4.1@global/bin:/Users/lixingwen/.rvm/rubies/ruby-2.4.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/lixingwen/.rvm/bin
+  /Users/lixingwen/.rvm/gems/ruby-2.4.1/bin:/Users/lixingwen/.rvm/gems/ruby-2.4.1@global/bin:/Users/lixingwen/.rvm/rubies/ruby-2.4.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/lixingwen/.rvm/gems/ruby-2.4.1/bin:/Users/lixingwen/.rvm/gems/ruby-2.4.1@global/bin:/Users/lixingwen/.rvm/rubies/ruby-2.4.1/bin:/Users/lixingwen/.rvm/bin:/Users/lixingwen/.rvm/bin:/Users/lixingwen/Library/Android/sdk/tools:/Users/lixingwen/Library/Android/sdk/tools/bin:/Users/lixingwen/Library/Android/sdk/platform-tools:/Users/lixingwen/Library/Android/sdk/emulator:/Users/lixingwen/.rvm/bin
 
 Yarn version: 
   1.17.3
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/@types%2fwebpack-env: ETIMEDOUT
+  Error: https://registry.npmjs.org/class-transformer/-/class-transformer-0.2.2.tgz: ETIMEDOUT
       at Timeout._onTimeout (/usr/local/lib/node_modules/yarn/lib/cli.js:141124:19)
       at ontimeout (timers.js:436:11)
       at tryOnTimeout (timers.js:300:5)
@@ -52,7 +52,6 @@ npm manifest:
       "@nestjs/platform-express": "^6.0.0",
       "@nestjs/platform-socket.io": "^6.8.3",
       "@nestjs/platform-ws": "^6.8.3",
-      "@nestjs/swagger": "^3.0.2",
       "@nestjs/typeorm": "^6.1.0",
       "@nestjs/websockets": "^6.8.3",
       "@types/joi": "^14.3.3",
@@ -75,7 +74,6 @@ npm manifest:
       "rxjs": "^6.3.3",
       "socket.io-redis": "^5.2.0",
       "stacktrace-js": "^2.0.1",
-      "swagger-ui-express": "^4.0.2",
       "typeorm": "^0.2.17"
     },
     "devDependencies": {
@@ -83,9 +81,10 @@ npm manifest:
       "@types/dotenv": "^6.1.1",
       "@types/express": "^4.16.0",
       "@types/jest": "^23.3.13",
-      "@types/node": "^10.12.18",
+      "@types/node": "^13.9.1",
       "@types/socket.io": "^2.1.4",
       "@types/supertest": "^2.0.7",
+      "@types/webpack-env": "^1.15.1",
       "@types/ws": "^6.0.3",
       "jest": "^23.6.0",
       "nodemon": "^1.18.9",
@@ -323,10 +322,10 @@ Lockfile:
     resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.0.0.tgz#d11813b9c0ff8aaca29f04cbc12817f4c7d656e5"
     integrity sha1-0RgTucD/iqyinwTLwSgX9MfWVuU=
   
-  "@types/node@^10.12.18":
-    version "10.14.6"
-    resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-10.14.6.tgz#9cbfcb62c50947217f4d88d4d274cc40c22625a9"
-    integrity sha1-nL/LYsUJRyF/TYjU0nTMQMImJak=
+  "@types/node@^13.9.1":
+    version "13.9.1"
+    resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.9.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-13.9.1.tgz#96f606f8cd67fb018847d9b61e93997dabdefc72"
+    integrity sha1-lvYG+M1n+wGIR9m2HpOZfave/HI=
   
   "@types/passport-jwt@^3.0.1":
     version "3.0.1"
@@ -386,6 +385,11 @@ Lockfile:
     integrity sha1-Rv9lCAdc1FGXNr4GDw1jMaXIyns=
     dependencies:
       "@types/superagent" "*"
+  
+  "@types/webpack-env@^1.15.1":
+    version "1.15.1"
+    resolved "https://registry.npm.taobao.org/@types/webpack-env/download/@types/webpack-env-1.15.1.tgz#c8e84705e08eed430b5e15b39c65b0944e4d1422"
+    integrity sha1-yOhHBeCO7UMLXhWznGWwlE5NFCI=
   
   "@types/ws@^6.0.3":
     version "6.0.3"

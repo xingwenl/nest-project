@@ -1,18 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Config {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    category: string
+  @Column()
+  category: string;
 
-    @Column()
-    key: string
-    
-    @Column()
-    val: string
+  @Column()
+  key: string;
 
-    
+  @Column()
+  val: string;
 }
