@@ -8,9 +8,9 @@ var js_utils = {
 	formatDate: function(time, fmt){
 		var now = new Date();
 		var date = new Date(time);
-		if(date == "Invalid Date"){
-			date = now;
-		}
+		// if(date == "Invalid Date"){
+		// 	date = now;
+		// }
 		var o = {
 			"M+": date.getMonth() + 1, //月份
 			"d+": date.getDate(), //日
@@ -66,67 +66,6 @@ var js_utils = {
 		}
 	},
 
-	getDateDiff: function(publishTime, options) {
-		var d_seconds,
-			d_minutes,
-			d_hours,
-			d_days,
-			timeNow = parseInt(new Date().getTime() / 1000),
-			d,
-			date = new Date(publishTime * 1000),
-			Y = date.getFullYear(),
-			M = date.getMonth() + 1,
-			D = date.getDate(),
-			H = date.getHours(),
-			m = date.getMinutes(),
-			s = date.getSeconds();
-		//小于10的在前面补0
-		if(M < 10) {
-			M = '0' + M;
-		}
-		if(D < 10) {
-			D = '0' + D;
-		}
-		if(H < 10) {
-			H = '0' + H;
-		}
-		if(m < 10) {
-			m = '0' + m;
-		}
-		if(s < 10) {
-			s = '0' + s;
-		}
-
-		d = timeNow - publishTime;
-		d_days = parseInt(d / 86400);
-		d_hours = parseInt(d / 3600);
-		d_minutes = parseInt(d / 60);
-		d_seconds = parseInt(d);
-
-		if (options.day) {
-			return D + ' ' + H + ':' + m;
-		}
-
-		if(d_days > 0 && d_days < 3) {
-			return d_days + '天前';
-		} else if(d_days <= 0 && d_hours > 0) {
-			return d_hours + '小时前';
-		} else if(d_hours <= 0 && d_minutes > 0) {
-			return d_minutes + '分钟前';
-		} else if(d_seconds < 60) {
-			if(d_seconds <= 0) {
-				return '刚刚发表';
-			} else {
-				return d_seconds + '秒前';
-			}
-		} else if(d_days >= 3 && d_days < 30) {
-			return M + '-' + D + ' ' + H + ':' + m;
-		} else if(d_days >= 30) {
-			return Y + '-' + M + '-' + D + ' ' + H + ':' + m;
-		}
-
-	},
-
 	//设置地址携带的数据
 	setHrefData: function(obj) {
 		var returnValue = "";
@@ -139,15 +78,15 @@ var js_utils = {
 
 	//获取连接地址
 	getHrefData: function(){
-		var href = window.location.href;
-		var paramStr = href.substring(href.indexOf("?") + 1);
-		var paramArray = paramStr.split("&");
-		var returnObj = {};
-		paramArray.forEach( function(obj,index) {
-			var tmp = paramArray[index].split("=");
-			returnObj[tmp[0]] = decodeURI(tmp[1]);
-		})
-		return returnObj;
+		// var href = window.location.href;
+		// var paramStr = href.substring(href.indexOf("?") + 1);
+		// var paramArray = paramStr.split("&");
+		// var returnObj = {};
+		// paramArray.forEach( function(obj,index) {
+		// 	var tmp = paramArray[index].split("=");
+		// 	returnObj[tmp[0]] = decodeURI(tmp[1]);
+		// })
+		// return returnObj;
 	},
 
 	// localStorage 获取封装
@@ -234,16 +173,7 @@ var js_utils = {
             iPhone: u.indexOf("iPhone") > -1 ,
             iPad: u.indexOf("iPad") > -1,
             webApp: u.indexOf("Safari") == -1,
-            isWeChat: u.toLowerCase().match(/MicroMessenger/i) == 'micromessenger'
         };
 		},
-		includeJs: function (path) {
-			var srcipt = document.createElement("script")
-			script.type = 'text/javascript'
-			script.src = path
-			script.charset = 'utf-8'
-			var head = document.getElementsByTagName('body')[0]
-			head.appendChild(script)
-		}
 }
 export default js_utils;

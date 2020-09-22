@@ -31,7 +31,7 @@ interface IUserInfo {
 //   }
 // }
 
-@WebSocketGateway(3002, {
+@WebSocketGateway(4002, {
     namespace: 'ws',
     // transports: ['websocket'],
     // path: '/ws',

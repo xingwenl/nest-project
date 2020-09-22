@@ -13,7 +13,6 @@ export class ConfigService {
   constructor(filePath?: string) {
     // 设置环境变量 防止出错
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
     // 设置文件配置路径
     filePath =
       filePath || path.resolve(__dirname, `../../../config/${process.env.NODE_ENV}.env`);
