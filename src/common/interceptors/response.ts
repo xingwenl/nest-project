@@ -21,16 +21,22 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
   constructor(private readonly logger: CustomLogger) {}
   intercept(context: ExecutionContext, next: CallHandler<T>): Observable<any> {
     return next.handle().pipe(
-      map(data => httpSuccess(data)),
+      map(data => {
+        if (typeof data === 'object') {
+            return httpSuccess(data)
+        }
+        return data
+      }),
       // 服务器错误处理
       catchError((err: any) => {
         const req: Request = context.switchToHttp().getRequest();
         this.logger.error(
-          `"${req.method} ${req.url}"\n`,
+          `[${req.method}] "${req.url}" ${JSON.stringify(req.body)}\n`,
           `${req.headers['user-agent']}\n`,
           err,
         );
-        return throwError(httpRes(ApiErrorCode.FAIL, err.toString()));
+        // return throwError(httpRes(ApiErrorCode.FAIL, err.toString()));
+        return throwError(err);
       }),
     );
     // return next.handle().map(data => ({ code: 200, data, message: 'success' }));

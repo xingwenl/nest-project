@@ -44,6 +44,7 @@ export class ConfigService {
           val: obj.val,
         };
       });
+      console.log(res);
       return namesObj;
     }
     httpRes(ApiErrorCode.NOT_FUND, '没找到');
