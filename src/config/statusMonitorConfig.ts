@@ -1,6 +1,6 @@
 export default {
     pageTitle: '新华后台监控',
-    port: 4001,
+    port: 80,
     path: '/status',
     ignoreStartsWith: '/health/alive',
     spans: [

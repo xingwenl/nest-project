@@ -81,6 +81,7 @@ export class SystemPerformance {
   @Column({
     comment: '页面的加载方式',
     default: null,
+    charset: 'utf8'
   })
   load_type_str: string;
 

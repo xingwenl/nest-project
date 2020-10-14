@@ -121,13 +121,13 @@ export class ArticleService {
       where,
     });
 
-    const testc = await this.articleRep
-      .createQueryBuilder()
-      .orderBy(order)
-      .skip(page * size)
-      .take(size)
-      .where(where)
-      .getManyAndCount();
+    // const testc = await this.articleRep
+    //   .createQueryBuilder()
+    //   .orderBy(order)
+    //   .skip(page * size)
+    //   .take(size)
+    //   .where(where)
+    //   .getManyAndCount();
     // console.log(testc)
 
     // let res = await this.articleRep.find({
@@ -142,10 +142,11 @@ export class ArticleService {
     //     }
     // })
     return {
+      size,
+      page,
       count: res[1],
       data: res[0],
       type_id: type_id,
-      testc: testc,
     };
   }
 
