@@ -30,13 +30,13 @@ function initSwagger(app) {
     .setVersion('1.0')
     .addTag('user')
     .setBasePath('/api')
-    .setHost(`localhost:${port}`)
+    .setHost(`${config.httpHost}:${port}`)
     .addBearerAuth() // 启用token验证
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('doc/api', app, document);
-  Logger.log(`Doc running on http://localhost:${port}/doc/api`);
+  Logger.log(`Doc running on http://${config.httpHost}:${port}/doc/api`);
 }
 
 async function bootstrap() {

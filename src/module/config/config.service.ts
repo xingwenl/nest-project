@@ -31,6 +31,7 @@ export class ConfigService {
       DB_DURATION: Joi.number().default(4001),
       UPLOAD_DEST: Joi.string().default('/uploads'),
       HTTP_PORT: Joi.number().default(4001),
+      HTTP_HOST: Joi.string().default('localhost'),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -81,5 +82,9 @@ export class ConfigService {
 
   get httpPort(): number {
     return Number(this.envConfig.HTTP_PORT)
+  }
+
+  get httpHost(): string {
+    return this.envConfig.HTTP_HOST;
   }
 }
