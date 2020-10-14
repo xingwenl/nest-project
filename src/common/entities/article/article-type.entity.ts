@@ -13,6 +13,7 @@ export class ArticleType {
 
   @Column({
     unique: true,
+    charset: 'utf8'
   })
   title: string;
 

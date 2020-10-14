@@ -14,6 +14,7 @@ export const DbModule = TypeOrmModule.forRootAsync({
       database: configService.dbDatabase,
       entities: [__dirname + '/../entities/**/*.entity{.ts,.js}'],
       synchronize: true,
+      charset: 'utf8',
       cache: {
         // 缓存时间 10s
         duration: configService.dbDuration,

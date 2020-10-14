@@ -63,7 +63,7 @@ async function bootstrap() {
   // 异常处理
   app.useGlobalFilters(new HttpExceptionFilter());
   // 成功处理
-  app.useGlobalInterceptors(new ResponseInterceptor(app.get(CustomLogger)));
+  // app.useGlobalInterceptors(new ResponseInterceptor(app.get(CustomLogger)));
   // token验证处理
   app.useGlobalGuards(new JwtAuthGuard(new Reflector()));
   // 角色处理

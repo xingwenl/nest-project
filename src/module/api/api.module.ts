@@ -1,3 +1,7 @@
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ResponseInterceptor } from '../../common/interceptors/response';
+import { CustomLogger } from '../logger/logger';
+
 import { PermissionsService } from './permissions/permissions.service';
 import { PermissionsController } from './permissions/permissions.controller';
 import { ArticleService } from './article/article.service';
@@ -36,6 +40,13 @@ import { VersionService } from './version/version.service';
         VersionController,
     ],
     providers: [
+        {
+          provide: APP_INTERCEPTOR,
+          useFactory(logger: CustomLogger) {
+            return new ResponseInterceptor(logger);
+          },
+          inject: [CustomLogger],
+        },
         UserService,
         ArticleService,
         UploadService,
