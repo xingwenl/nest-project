@@ -49,6 +49,7 @@ export class Article {
     comment: 'md的内容',
     type: 'text',
     length: 0,
+    charset: 'utf8',
   })
   content: string;
 
@@ -56,6 +57,7 @@ export class Article {
     comment: 'html的内容',
     type: 'text',
     length: 0,
+    charset: 'utf8',
   })
   render_content: string;
 
