@@ -41,7 +41,8 @@ export class Article {
 
   @Column({
     comment: '备注',
-    default: null,
+    default: '',
+    charset: 'utf8',
   })
   memo: string;
 
