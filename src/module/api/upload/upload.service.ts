@@ -17,7 +17,7 @@ export class UploadService {
       type: file.fieldname,
     });
     return {
-      path: file.path,
+      path: `/${file.path}`,
     };
   }
 

@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    volumes: 
+      - $PWD/conf:/etc/mysql
+      - $PWD/data:/var/lib/mysql
+    # 修改加密规则为“mysql_native_password”
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    ports:
+      - 3306:3306
+    environment: 
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_USER: xingwen
+      MYSQL_PASSWORD: xingwen123456
+networks: 
+  mysql:
+    driver: bridge

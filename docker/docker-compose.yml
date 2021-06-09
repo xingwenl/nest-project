@@ -1,0 +1,6 @@
+version: '1.27.4'
+services:
+  nest:
+    build: .
+    ports: 
+      - "5000:5000"

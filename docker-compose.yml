@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  xwblog:
+    image: node:14.17.0
+    restart: always
+    volumes: 
+      - ./:/home/node
+    # 修改加密规则为“mysql_native_password”
+    command: ["npm", "run", "install"]
+    ports:
+      - 8080:8080
+    networks: 
+      - mysql0
+networks: 
+  mysql0:
+    external: true

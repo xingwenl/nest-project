@@ -96,4 +96,11 @@ export class ArticleController {
   editType() {
     return 'edit/type';
   }
+
+  @ApiOperation({ title: 'formtest', description: 'formtest' })
+  @Post('formtest')
+  async formtest(@Body() body) {
+    console.log(body)
+    return body;
+  }
 }

@@ -32,9 +32,9 @@ interface IUserInfo {
 // }
 
 @WebSocketGateway(4002, {
-    namespace: 'ws',
+    // namespace: 'ws',
     // transports: ['websocket'],
-    // path: '/ws',
+    path: '/ws',
     //   serveClient: false
 })
 export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
