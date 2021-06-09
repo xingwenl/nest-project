@@ -1,6 +1,6 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '../../module/config/config.service';
-
+console.log('entities路径====', __dirname + '/../entities/**/*.entity{.ts,.js}');
 export const DbModule = TypeOrmModule.forRootAsync({
   useFactory: async (
     configService: ConfigService,
