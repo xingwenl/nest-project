@@ -8,11 +8,13 @@ import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { formatDate } from '../utils';
 import { Request } from 'express';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 @Global()
 @Module({
   imports: [
-    DbModule,
     EntitiesModule,
+    DbModule,
     MulterModule.registerAsync({
       useFactory: (configService: ConfigService) => ({
         // dest: configService.uploadDest,
@@ -34,6 +36,6 @@ import { Request } from 'express';
   ],
   controllers: [],
   providers: [],
-  exports: [],
+  exports: [TypeOrmModule],
 })
 export class CommonModule {}

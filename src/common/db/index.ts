@@ -1,6 +1,5 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '../../module/config/config.service';
-console.log('entities路径====', __dirname + '/../entities/**/*.entity{.ts,.js}');
 export const DbModule = TypeOrmModule.forRootAsync({
   useFactory: async (
     configService: ConfigService,
@@ -12,9 +11,10 @@ export const DbModule = TypeOrmModule.forRootAsync({
       username: configService.dbUsername,
       password: configService.dbPassword,
       database: configService.dbDatabase,
-      entities: [__dirname + '/../entities/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      // entities: [__dirname + '/../entities/**/*.entity{.ts,.js}'],
+      synchronize: false,
       charset: 'utf8mb4',
+      autoLoadEntities: true,
       cache: {
         // 缓存时间 10s
         duration: configService.dbDuration,

@@ -1,15 +1,15 @@
 import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-// import { Repository } from 'typeorm';
-// import { InjectRepository } from '@nestjs/typeorm';
-// import { Userinfo } from '../../common/entities/user/user-info.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Userinfo } from '../../common/entities/user/user-info.entity';
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    // @InjectRepository(Userinfo)
-    // private readonly userRepository: Repository<Userinfo>,
+    @InjectRepository(Userinfo)
+    private readonly userRepository: Repository<Userinfo>,
   ) {}
 
   /**
@@ -24,7 +24,7 @@ export class AuthService {
 
   //  token 是从 HTTP 请求中的 Authorization 提取
   async validateUser(payload: JwtPayload): Promise<any> {
-    // return await this.userRepository.findOne(payload);
-    return {}
+    return await this.userRepository.findOne(payload);
+    // return {}
   }
 }
