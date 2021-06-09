@@ -33,7 +33,7 @@ function whereString(str: string, alias: string) {
 }
 
 // 排序
-function order(sort_by, desc) {
+function order(sort_by: any, desc: any) {
   let order: any = {};
   const orderVal = Number(desc) === 1 ? 'DESC' : 'ASC';
   if (sort_by) {
@@ -44,7 +44,15 @@ function order(sort_by, desc) {
   return order;
 }
 
-function paging({ sort_by, desc = 1, page = 0, size = 10, where = '' }) {
+interface IPageParams {
+  sort_by?: any;
+  desc?: number;
+  page?: number;
+  size?: number;
+  where?: any;
+}
+
+function paging({ sort_by, desc = 1, page = 0, size = 10, where = '' }: IPageParams) {
   let _order: any = order(sort_by, desc);
   return async function(db: SelectQueryBuilder<any>) {
     let whereStr = whereString(where, db.alias);
