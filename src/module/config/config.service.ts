@@ -22,15 +22,15 @@ export class ConfigService {
 
   private validateInput(envConfig: EnvConfig): EnvConfig {
     const envVar: Joi.ObjectSchema = Joi.object({
-      HOST: Joi.number().default(4001),
+      HOST: Joi.number().default(8080),
       DB_PORT: Joi.number().default(3306),
       DB_USERNAME: Joi.string().default('root'),
       DB_PASSWORD: Joi.any(),
       DB_DATABASE: Joi.string(),
       DB_HOST: Joi.strict(),
-      DB_DURATION: Joi.number().default(4001),
+      DB_DURATION: Joi.number().default(8080),
       UPLOAD_DEST: Joi.string().default('/uploads'),
-      HTTP_PORT: Joi.number().default(4001),
+      HTTP_PORT: Joi.number().default(8080),
       HTTP_HOST: Joi.string().default('localhost'),
     });
 

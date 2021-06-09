@@ -12,7 +12,7 @@ export const DbModule = TypeOrmModule.forRootAsync({
       password: configService.dbPassword,
       database: configService.dbDatabase,
       // entities: [__dirname + '/../entities/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
       charset: 'utf8mb4',
       autoLoadEntities: true,
       cache: {
